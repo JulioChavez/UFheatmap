@@ -1,5 +1,7 @@
+# gathr
+## CEN4914 - CISE Senior Design
 
-rkflow
+
 This assignment will help in understanding how to use GitHub to collaborate with your team members. 
 
 * [Common Git Commands](#common-git-commands)
