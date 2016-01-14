@@ -18,3 +18,4 @@
 //= require gmaps/google
 //= require jquery
 //= require materialize-sprockets
+//= require init
