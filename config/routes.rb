@@ -3,6 +3,14 @@ Rails.application.routes.draw do
 
   get 'playground/index'
 
+  #get 'dashboard/index'
+
+  #get 'login/index'
+
+  #get 'playground/index'
+
+  match ':controller(/:action(/:id(.:format)))', :via => :get
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
