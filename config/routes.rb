@@ -1,13 +1,6 @@
 Rails.application.routes.draw do
+  
   root 'home#new' 
-
-  get 'playground/index'
-
-  #get 'dashboard/index'
-
-  #get 'login/index'
-
-  #get 'playground/index'
 
   match ':controller(/:action(/:id(.:format)))', :via => :get
 
