@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  root 'home#new' 
+  root 'home#new'
 
   get 'playground/index'
+  get 'events/new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

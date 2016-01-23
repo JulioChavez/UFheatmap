@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  start: 2016-01-23 18:26:11
+  food: false
+  swag: false
+  prizes: false
+  infosession: false
+
+two:
+  title: MyString
+  start: 2016-01-23 18:26:11
+  food: false
+  swag: false
+  prizes: false
+  infosession: false
