@@ -9,3 +9,7 @@
 event1 = Event.create(title: 'Made in Seed 1', street: '1864 STADIUM RD', city: 'Gainesville', state:  'Florida', zip_code: '32611')
 event2 = Event.create(title: 'Made in Seed 2', street: '330 NEWELL DR', city: 'Gainesville', state:  'Florida', zip_code: '32611')
 event3 = Event.create(title: 'Made in Seed 3', street: '1765 STADIUM RD', city: 'Gainesville', state:  'Florida', zip_code: '32611')
+event3 = Event.create(title: 'Made in Seed 4', street: '296 BUCKMAN DR', city: 'Gainesville', state:  'Florida', zip_code: '32611')
+event3 = Event.create(title: 'Made in Seed 5', street: '432 NEWELL DR', city: 'Gainesville', state:  'Florida', zip_code: '32611')
+event3 = Event.create(title: 'Made in Seed 6', street: '1885 STADIUM RD', city: 'Gainesville', state:  'Florida', zip_code: '32611')
+event3 = Event.create(title: 'Made in Seed 7', street: '1772 STADIUM RD', city: 'Gainesville', state:  'Florida', zip_code: '32611')
