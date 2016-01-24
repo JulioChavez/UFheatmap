@@ -14,8 +14,12 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-#Gem used for Facebook API
+#Gem used for Facebook API data fetching
 gem 'koala', '~> 2.2'
+
+# Gem used for user authentication
+
+gem 'omniauth-facebook'
 
 # Gem used for Google Maps API calls
 gem 'gmaps4rails'
