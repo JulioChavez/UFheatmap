@@ -3,6 +3,6 @@ class Event < ActiveRecord::Base
 
 	after_validation :geocode
 	def address
- 	 [street, city, state, ].compact.join(', ')
+ 	 [street, city, state, zip_code].compact.join(', ')
 	end
 end

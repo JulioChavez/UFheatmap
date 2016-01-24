@@ -6,19 +6,6 @@
 <!-- <h1>Listing Events</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Start time</th>
-      <th>Food</th>
-      <th>Swag</th>
-      <th>Prizes</th>
-      <th>Confirmed attendees</th>
-      <th>Declined attendees</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @events.each do |event| %>
       <tr>
@@ -68,27 +55,21 @@
 <script src="//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js"></script>
 <script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js' type='text/javascript'></script> <!-- only if you need custom infoboxes -->
 <script type='text/javascript'>
-    var i = 1;
-    <% @events.each do |event| %>
-        console.log(i);
-        i = i + 1;
-    <% end %>
 
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
 
-        markers = handler.addMarkers([
-        {
-          "lat": 25.976812,
-          "lng": -80.378465,
-          "picture": {
-            "width":  32,
-            "height": 32
-          },
-          "infowindow": "hello!"
-        }
-        ]);
-        handler.bounds.extendWith(markers);
+        <% @events.each do |event| %>
+            markers = handler.addMarkers([
+            {
+              "lat": event.lat,
+              "lng": event.long,
+              "infowindow": "<h4><b>event.title</b></h4><p>Come to our event!</p>"
+            }
+            ]);
+            handler.bounds.extendWith(markers);
+        <% end %>
+
         handler.fitMapToBounds();
         handler.getMap().setZoom(15);
     });

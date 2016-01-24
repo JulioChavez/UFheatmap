@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20160124123140) do
     t.integer  "declined_attendees"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.string   "street"
+    t.string   "address"
     t.string   "city"
     t.string   "zip_code"
     t.string   "state"
