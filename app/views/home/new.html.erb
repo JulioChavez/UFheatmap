@@ -9,7 +9,9 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">Logo</a>
+      <a id="logo-container" href="#" class="brand-logo">
+        <%= image_tag("gathr_logo.png", :alt => "outFire", size: "35x55") %>
+      </a>
       <ul class="right hide-on-med-and-down">
         <!-- <li><a href="#">Navbar Link</a></li>  How to add an item to nav bar-->
         <% if user_signed_in? %>
