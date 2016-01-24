@@ -44,17 +44,29 @@
 <div class="row">
     <div class="col s12 m7">
       <div class="card">
-        <div class="card-image">
           <span class="card-title">
             <%= event.title %>
+            <%= event.start_time %>
           </span>
         </div>
         <div class="card-content">
           <p><%= event.title %></p>
+          <p><%= event.address %></p>
         </div>
+
         <div class="card-action">
-          <a href="#">This is a link</a>
+          <div class="row">
+            <div class="col s4">
+              Food <%= event.food %>
+            </div>
+            <div class="col s4">
+              Swag <%= event.swag%>
+            </div>
+            <div class="col s4">
+              Prizes <%= event.prizes %>
+            </div>
         </div>
+
       </div>
     </div>
   </div>
