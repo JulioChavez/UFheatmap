@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+  <div class="text-center center-form">
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -19,26 +19,22 @@
   <%= f.input :start_time, input_html: {class:'datepicker'} %>
 
   <div class="field">
-    <%= f.label :food %><br>
-    <%= f.check_box :food %>
+    <%= f.input :food, as: :boolean, boolean_style: :inline, required: false  %>
+    <%= f.input :swag, as: :boolean, boolean_style: :inline, required: false %>
+    <%= f.input :prizes, as: :boolean, boolean_style: :inline, required: false %>
+    <!-- <%= f.input :prizes, as: :radio_buttons, boolean_style: :inline, required: false %> -->
   </div>
-  <div class="field">
-    <%= f.label :swag %><br>
-    <%= f.check_box :swag %>
-  </div>
-  <div class="field">
-    <%= f.label :prizes %><br>
-    <%= f.check_box :prizes %>
-  </div>
-  
+
+
    <%= f.input :address %>
    <%= f.input :city %>
    <%= f.input :state %>
    <%= f.input :zip_code %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions center">
+    <%= f.submit class: 'btn btn-default'%>
   </div>
+</div>
 <% end %>
 
 <script type="text/javascript">
