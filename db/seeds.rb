@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 event1 = Event.create(title: 'Made in Seed 1', street: '1864 STADIUM RD', city: 'Gainesville', state:  'Florida', zip_code: '32611')
-event2 = Event.create(title: 'Made in Seed 1', street: '330 NEWELL DR', city: 'Gainesville', state:  'Florida', zip_code: '32611')
-event3 = Event.create(title: 'Made in Seed 1', street: '1765 STADIUM RD', city: 'Gainesville', state:  'Florida', zip_code: '32611')
+event2 = Event.create(title: 'Made in Seed 2', street: '330 NEWELL DR', city: 'Gainesville', state:  'Florida', zip_code: '32611')
+event3 = Event.create(title: 'Made in Seed 3', street: '1765 STADIUM RD', city: 'Gainesville', state:  'Florida', zip_code: '32611')
