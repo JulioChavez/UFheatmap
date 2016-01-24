@@ -34,6 +34,9 @@ gem 'materialize-sass'
 # Nokogiri gem (Needed to do 'bundle exec rake db:migrate')
 gem 'nokogiri'
 
+#help create basic forms for models
+gem 'simple_form'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
