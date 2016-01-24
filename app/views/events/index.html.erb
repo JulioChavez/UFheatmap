@@ -39,6 +39,8 @@
 </table>
 
 <br> -->
+<div class="timeline">
+
 
 <% @events.each do |event| %>
 <div class="row">
@@ -46,31 +48,47 @@
       <div class="card">
           <span class="card-title">
             <%= event.title %>
-            <%= event.start_time %>
+
           </span>
-        </div>
+
         <div class="card-content">
-          <p><%= event.title %></p>
-          <p><%= event.address %></p>
+          <%= event.address %> <br>
+          <%= event.start_time %>
         </div>
 
         <div class="card-action">
           <div class="row">
-            <div class="col s4">
-              Food <%= event.food %>
+            <div class="col s3">
+                <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "left") %>
+
+
+                <div class="card-action-attendee-count">35<%= event.confirmed_attendees %></div>
             </div>
-            <div class="col s4">
-              Swag <%= event.swag%>
+            <div class="col s3">
+              <% if event.food %>
+                <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
+              <% end %>
             </div>
-            <div class="col s4">
-              Prizes <%= event.prizes %>
+            <div class="col s3">
+              <% if event.swag %>
+                <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
+              <% end %>
             </div>
+            <div class="col s3">
+              <% if event.prizes %>
+                <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
+              <% end %>
+            </div>
+          </div>
         </div>
 
+        <div class="right teal"></div>
       </div>
     </div>
   </div>
 <% end %>
+
+</div>
 
 
 <%= link_to 'New Event', new_event_path %>
@@ -104,4 +122,5 @@
         handler.fitMapToBounds();
         handler.getMap().setZoom(15);
     });
+
 </script>
