@@ -13,19 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160124034231) do
 
-  create_table "event", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "start"
-    t.boolean  "food"
-    t.boolean  "swag"
-    t.boolean  "prizes"
-    t.boolean  "infosession"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "confirmed"
-    t.string   "declined"
-  end
-
   create_table "events", force: :cascade do |t|
     t.string   "title"
     t.datetime "start_time"
