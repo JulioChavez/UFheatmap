@@ -30,6 +30,9 @@ gem 'omniauth-facebook'
 
 # Gem used for Google Maps API calls
 gem 'gmaps4rails'
+
+# gem to convert address to lat,long
+gem 'geocoder'
 # Underscore gem, required for gmaps4rails gem
 gem 'underscore-rails'
 

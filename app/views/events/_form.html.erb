@@ -26,10 +26,12 @@
   </div>
 
 
-   <%= f.input :address %>
+   <%= f.input :street %>
    <%= f.input :city %>
    <%= f.input :state %>
    <%= f.input :zip_code %>
+   <%= f.input :latitude, as: :float %>
+   <%= f.input :longitude, as: :float %>
 
   <div class="actions center">
     <%= f.submit class: 'btn btn-default'%>

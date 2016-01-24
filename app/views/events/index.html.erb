@@ -79,8 +79,8 @@
 
         markers = handler.addMarkers([
         {
-          "lat": 0,
-          "lng": 0,
+          "lat": 29.6436325,
+          "lng": -82.3549302,
           "picture": {
             "width":  32,
             "height": 32
@@ -90,5 +90,6 @@
         ]);
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
+        handler.getMap().setZoom(15);
     });
 </script>
