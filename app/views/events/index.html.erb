@@ -59,17 +59,18 @@
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
 
-        <% @events.each do |event| %>
-            markers = handler.addMarkers([
-            {
-              "lat": event.lat,
-              "lng": event.long,
-              "infowindow": "<h4><b>event.title</b></h4><p>Come to our event!</p>"
-            }
-            ]);
-            handler.bounds.extendWith(markers);
-        <% end %>
 
+        markers = handler.addMarkers([
+        <% @events.each do |event| %>
+            {
+              "lat": <%= event.latitude %>,
+              "lng": <%= event.longitude %>,
+              "infowindow": "<h4><b><%= event.title %></b></h4><p>Come to our event!</p>"
+          },
+        <% end %>
+            ]);
+
+        handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
         handler.getMap().setZoom(15);
     });
