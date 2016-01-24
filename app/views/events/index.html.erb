@@ -1,61 +1,118 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Heatmaps</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
 
-<!-- <h1>Listing Events</h1>
+      #floating-panel {
+        background-color: #fff;
+        border: 1px solid #999;
+        left: 25%;
+        padding: 5px;
+        position: absolute;
+        top: 10px;
+        z-index: 5;
+      }
+    </style>
+  </head>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Start time</th>
-      <th>Food</th>
-      <th>Swag</th>
-      <th>Prizes</th>
-      <th>Confirmed attendees</th>
-      <th>Declined attendees</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= event.title %></td>
-        <td><%= event.start_time %></td>
-        <td><%= event.food %></td>
-        <td><%= event.swag %></td>
-        <td><%= event.prizes %></td>
-        <td><%= event.confirmed_attendees %></td>
-        <td><%= event.declined_attendees %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-
-  </tbody>
-</table>
-
-<br> -->
-
-<% @events.each do |event| %>
-<div class="row">
-    <div class="col s12 m7">
-      <div class="card">
-        <div class="card-image">
-          <span class="card-title">
-            <%= event.title %>
-          </span>
-        </div>
-        <div class="card-content">
-          <p><%= event.title %></p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-        </div>
-      </div>
+  <body>
+    <div id="floating-panel">
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+      <button onclick="changeGradient()">Change gradient</button>
+      <button onclick="changeRadius()">Change radius</button>
+      <button onclick="changeOpacity()">Change opacity</button>
     </div>
-  </div>
-<% end %>
+    <div id="map"></div>
+    <script>
 
+// This example requires the Visualization library. Include the libraries=visualization
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
 
-<%= link_to 'New Event', new_event_path %>
+var map, heatmap;
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 13,
+    //center: {lat: 37.775, lng: -122.434},
+    center: {lat: 29.649277, lng: -82.343901},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  heatmap = new google.maps.visualization.HeatmapLayer({
+    data: getPoints(),
+    map: map
+  });
+}
+
+function toggleHeatmap() {
+  heatmap.setMap(heatmap.getMap() ? null : map);
+}
+
+function changeGradient() {
+  var gradient = [
+    'rgba(0, 255, 255, 0)',
+    'rgba(0, 255, 255, 1)',
+    'rgba(0, 191, 255, 1)',
+    'rgba(0, 127, 255, 1)',
+    'rgba(0, 63, 255, 1)',
+    'rgba(0, 0, 255, 1)',
+    'rgba(0, 0, 223, 1)',
+    'rgba(0, 0, 191, 1)',
+    'rgba(0, 0, 159, 1)',
+    'rgba(0, 0, 127, 1)',
+    'rgba(63, 0, 91, 1)',
+    'rgba(127, 0, 63, 1)',
+    'rgba(191, 0, 31, 1)',
+    'rgba(255, 0, 0, 1)'
+  ]
+  heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+}
+
+function changeRadius() {
+  heatmap.set('radius', heatmap.get('radius') ? null : 50);
+}
+
+function changeOpacity() {
+  heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
+}
+
+// Heatmap data: 500 Points
+function getPoints() {
+  return [
+    {location: new google.maps.LatLng(29.648002, -82.343921),weight: 1000},
+    new google.maps.LatLng(29.648002, -82.343921), {location: new google.maps.LatLng(29.649334, -82.343809),weight: 500},
+    new google.maps.LatLng(29.649334, -82.343809)
+  ];
+}
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIP5p2T5wk1ItO-FG0ZKAsZhrknSGC5Nk  
+&signed_in=true&libraries=visualization&callback=initMap">
+    </script>
+  </body>
+</html>
