@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get 'auth/facebook', as: "auth_provider"
   get 'auth/facebook/callback', to: 'users#login'
+  #get 'auth/facebook/callback', to: 'sessions#create'
 
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.
