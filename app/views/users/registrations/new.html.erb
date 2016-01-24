@@ -1,9 +1,13 @@
-<h2>Sign up</h2>
+<div class="row">
+  <div class="col s12">
+    <%= image_tag("gathr_logo.png", :alt => "outFire", size: "50x79", class: "center") %>
+  </div>
+</div>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
+  <div class="form-inputs text-center center-form">
     <%= f.input :first_name, required: true, autofocus: true %>
     <%= f.input :last_name, required: true, autofocus: true %>
     <%= f.input :email, required: true, autofocus: true %>
@@ -11,9 +15,10 @@
     <%= f.input :password_confirmation, required: true %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+  <div class="form-actions center">
+    <%= f.button :submit, "Sign up", class:"btn" %>
   </div>
 <% end %>
+
 
 <%= render "users/shared/links" %>

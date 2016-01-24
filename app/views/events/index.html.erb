@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Events</h1>
+<!-- <h1>Listing Events</h1>
 
 <table>
   <thead>
@@ -31,9 +31,31 @@
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+
   </tbody>
 </table>
 
-<br>
+<br> -->
+
+<% @events.each do |event| %>
+<div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <span class="card-title">
+            <%= event.title %>
+          </span>
+        </div>
+        <div class="card-content">
+          <p><%= event.title %></p>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 
 <%= link_to 'New Event', new_event_path %>
