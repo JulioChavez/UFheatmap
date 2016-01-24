@@ -10,6 +10,12 @@ Rails.application.routes.draw do
   root 'home#new'
   get 'playground/index'
 
+  #get '/auth/:provider/callback', to: 'sessions#create'
+
+  get 'auth/facebook', as: "auth_provider"
+  get 'auth/facebook/callback', to: 'users#login'
+
+  match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

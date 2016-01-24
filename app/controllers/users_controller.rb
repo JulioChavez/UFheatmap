@@ -7,6 +7,12 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def login
+    @user = User.koala(request.env['omniauth.auth']['credentials'])
+    #self.current_user = @user
+    redirect_to '/'
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show
@@ -64,6 +70,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
+      puts params
       @user = User.find(params[:id])
     end
 

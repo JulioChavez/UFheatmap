@@ -16,6 +16,9 @@
 !/log/.keep
 /tmp
 
+# Ignore facebook information
+/config/facebook.yml
+
 #DS_Store Bug
 .DS_Store
 
