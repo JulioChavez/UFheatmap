@@ -5,4 +5,10 @@ class Event < ActiveRecord::Base
 	def address
  	 [street, city, state, ].compact.join(', ')
 	end
+
+	def increment_attendance
+		self.confirmed_attendees ||= 0
+		self.confirmed_attendees += 1
+		self.save!
+	end
 end

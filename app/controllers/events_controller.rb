@@ -50,6 +50,11 @@ class EventsController < ApplicationController
     end
   end
 
+  def increment
+    @event = Event.find(params[:id])
+    render json: { success: @event.increment_attendance }, status: :ok
+  end
+
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
