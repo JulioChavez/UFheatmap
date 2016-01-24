@@ -31,6 +31,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Materialize SCSS
 gem 'materialize-sass'
 
+# Nokogiri gem (Needed to do 'bundle exec rake db:migrate')
+gem 'nokogiri'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
