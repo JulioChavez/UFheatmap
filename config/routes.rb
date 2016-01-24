@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
 
   resources :events
-  devise_for :users, :controllers => { registrations: 'registrations' }
-  
+  devise_for :users, :controllers => { registrations: 'registrations'}
+
   devise_scope :user do
     delete 'logout', to: "devise/sessions#destroy"
   end
-
 
   root 'home#new'
   get 'playground/index'
