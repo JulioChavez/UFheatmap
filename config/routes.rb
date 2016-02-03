@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :events
+  get 'event/increment/:id' => 'events#increment'
   devise_for :users, :controllers => { registrations: 'registrations'}
 
   devise_scope :user do
