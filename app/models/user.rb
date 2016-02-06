@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   belongs_to :role
   before_create :set_default_role
-
+  
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
