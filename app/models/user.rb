@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  belongs_to :role
+  before_create :set_default_role
+
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -15,6 +18,11 @@ def self.koala(auth)
     access_token = auth['token']
     facebook = Koala::Facebook::API.new(access_token)
     #facebook.get_object("me?fields=name,picture")
+  end
+
+  private
+  def set_default_role
+    self.role ||= Role.find_by_name('attendee')
   end
 
 end
