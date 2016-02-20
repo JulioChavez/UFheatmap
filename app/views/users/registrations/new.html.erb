@@ -13,8 +13,10 @@
     <%= f.input :email, required: true, autofocus: true %>
     <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
     <%= f.input :password_confirmation, required: true %>
-    <%= f.association :roles, :label => "What kind of user are you?", as: :check_boxes, boolean_style: :inline, required: false %>
-  </div>
+    <%= check_box_tag(:organizer) %>
+    <%= label_tag(:organizer, "I'm an organizer") %>
+    <!-- <%= f.association :roles, :label => "What kind of user are you?", as: :check_boxes, boolean_style: :inline, required: false %>
+  </div> -->
 
   <div class="form-actions center">
     <%= f.button :submit, "Sign up", class:"btn" %>
