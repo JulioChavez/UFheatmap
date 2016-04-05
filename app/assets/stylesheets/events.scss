@@ -24,8 +24,8 @@ img.center {
 .timeline {
    /* Set the margin-left and margin-right automatically set */
    margin: 0 auto;
-   margin-left: 10%;
-   margin-right: 10%;
+   margin-left: 0%;
+   margin-right: 0%;
 }
 
 .card {
@@ -67,4 +67,27 @@ img.center {
   width: 50%;
    /* Set the margin-left and margin-right automatically set */
    margin: 0 auto;
+}
+
+.btn-hm {
+  height: 50%;
+  width: 100%;
+}
+
+.cv-parent {
+  position: relative;
+}
+.cv-child {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.img-center {
+  margin-left: 25%;
+  margin-right: 25%;
+ }
+.center-me {
+  display:block;
+  margin:0 auto;
 }
