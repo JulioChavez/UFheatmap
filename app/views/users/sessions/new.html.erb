@@ -5,15 +5,16 @@
 </div>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs text-center center-form">
+  <div class="form-inputs text-center center-form-h">
     <%= f.input :email, required: false, autofocus: true %>
     <%= f.input :password, required: false %>
     <!-- <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %> -->
   </div>
 
-  <div class="form-actions center">
+  <div class="form-actions center btn-h">
     <%= f.button :submit, "Log in" %>
   </div>
 <% end %>
-
-<%= render "users/shared/links" %>
+<div class="center link-to-signup">
+  <%= link_to('Don\'t have an account?', new_user_registration_path) %>
+</div>
