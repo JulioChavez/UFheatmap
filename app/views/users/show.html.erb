@@ -1,3 +1,100 @@
-<div class="banner">
-  <%= @user.first_name %>
+<nav>
+  <ul class="side-nav">
+  </ul>
+  <ul id="slide-out" class="side-nav fixed">
+    <div class="center nav-profile">
+      <%= image_tag("julio.jpg", :height => "100", :alt => "attendee_icon", :class => "img-circle") %>
+      <div class="">
+        <%= @user.first_name %>
+        <%= @user.last_name %>
+      </div>
+    </div>
+    <li><a href="#!">Events</a></li>
+    <li><a href="#!">Settings</a></li>
+  </ul>
+ <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+</nav>
+
+<div class="timeline sideNav-padding">
+<% @events.each do |event| %>
+    <% if event.start_time == current_user.id %>
+      <div class="card">
+
+          <!-- <div class="left">
+            <%= event.title %>
+            <%= event.address %>
+            <%= event.start_time %>
+          </div> -->
+
+            <div class="card-right-border right teal">
+                <!--Place Btn Here-->
+
+                <div class="btn-hm cv-parent">
+                    <%= image_tag("Check@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
+                </div>
+
+                <div class="btn-hm cv-parent">
+                  <%= image_tag("Xmark@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
+                </div>
+
+            </div>
+
+            <div class="card-left">
+
+              <div class="card-title-hm">
+
+              <div class="left">
+                  <%= image_tag("hugh.png", :height => "50", :alt => "attendee_icon", :class => "img-circle") %>
+              </div>
+                <%= event.title %>
+              </div>
+              <div class="card-address">
+                <%= event.address %>
+              </div>
+              <div class="card-time">
+                <!-- <%= event.start_time %> -->
+                3:00pm
+              </div>
+              <div class="card-desc">
+                <!-- event_description -->
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              </div>
+            </div>
+
+  <!-- <div class="btn btn<%= event.id %> waves-effect waves-light", style="margin-left: 60px;">Confirm</div> -->
+   <!--    <div class="card-action">
+          <div class="row">
+            <div class="col s3">
+                <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "left") %>
+                <div class="card-action-attendee-count"><%= event.confirmed_attendees %></div>
+            </div>
+            <div class="col s3">
+              <% if event.food %>
+                <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
+              <% end %>
+            </div>
+            <div class="col s3">
+              <% if event.swag %>
+                <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
+              <% end %>
+            </div>
+            <div class="col s3">
+              <% if event.prizes %>
+                <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
+              <% end %>
+            </div>
+          </div>
+        </div> -->
+  </div>
+  <% end %>
+<% end %>
+
+</div>
+
+
+
+<div class="banner center">
+
 </div>
