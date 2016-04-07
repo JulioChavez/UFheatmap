@@ -138,25 +138,26 @@
 <script>
 function initMap() {
 
-    centerLat = 0;
-    centerLng = 0;
-    count = 0;
-    <% @events.each do |event| %>
-        tmpLat = <%= event.latitude %>;
-        tmpLng = <%= event.longitude %>;
-        tmpPosition = {lat: tmpLat, lng: tmpLng};
-        centerLat = centerLat + tmpLat;
-        centerLng = centerLng + tmpLng;
-        count += 1;
-    <% end %>
-    centerLat = centerLat / count;
-    centerLng = centerLng / count;
-    center = { lat: centerLat, lng: centerLng };
+    // centerLat = 0;
+    // centerLng = 0;
+    // count = 0;
+    // <% @events.each do |event| %>
+    //     tmpLat = <%= event.latitude %>;
+    //     tmpLng = <%= event.longitude %>;
+    //     tmpPosition = {lat: tmpLat, lng: tmpLng};
+    //     centerLat = centerLat + tmpLat;
+    //     centerLng = centerLng + tmpLng;
+    //     count += 1;
+    // <% end %>
+    // centerLat = centerLat / count;
+    // centerLng = centerLng / count;
+    // center = { lat: centerLat, lng: centerLng };
+
+    events = getEvents();
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+    bounds = new google.maps.LatLngBounds();
 
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: getPoints(),
@@ -164,36 +165,46 @@ function initMap() {
     });
     heatmap.set('radius', 50);
 
-    events = getEvents();
-
     var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+    // Create all of the markers with their respective info windows
     for (i = 0; i < events.length; i++) {
-        tmpPosition = events[i].position;
+        position = new google.maps.LatLng(events[i].position.lat,events[i].position.lng);
+        // Extend the bounds of the map depending on where the new marker will be located
+        bounds.extend(position);
 
-        console.log(events[i].title);
-        contentString = '<b><h5>' + events[i].title + '</h5></b>' +
-        '<p>Event Address</p>';
-
+        // Initialize the marker
         marker = new google.maps.Marker({
-            position: tmpPosition,
+            position: position,
             map: map,
-            title: events.title
+            title: events[i].title
         });
-        // Allow each marker to have an info window
+
+        // Assign each marker its own info window
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
                 infoWindow.setContent(
                     '<b><h5>' + events[i].title + '</h5></b>' +
-                    '<p>Event Address</p>'
+                    '<p>' + events[i].street + '<br>' + events[i].city + ', ' +
+                    events[i].state + ' ' + events[i].zip_code + '</p>'
                 );
                 infoWindow.open(map, marker);
             }
         })(marker, i));
+
+        // Automatically center the map fitting all markers on the screen
+        map.fitBounds(bounds);
     }
 
-    // Allow each marker to have an info window
+    // Close info windows when clicking outside of the info window (i.e. on the map)
     google.maps.event.addListener(map, "click", function(event) {
         infoWindow.close();
+    });
+
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(14);
+        google.maps.event.removeListener(boundsListener);
     });
 }
 
@@ -229,8 +240,9 @@ function changeOpacity() {
     heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
 }
 
+// Returns an array of all of the events passed in through the @events variable
 function getEvents() {
-    // Available attributes...
+    // Available attributes:
     // title, start_time, food, swag, prizes, confirmed_attendees, declined_attendees, street, city, state, zip_code
     return [
         <% @events.each do |event| %>
@@ -242,6 +254,9 @@ function getEvents() {
             },
             confirmed_attendees: <%= event.confirmed_attendees %>,
             // declined_attendees: <%= event.declined_attendees %>,
+            food: '<%= event.food %>',
+            swag: '<%= event.swag %>',
+            prizes: '<%= event.prizes %>',
             street: '<%= event.street %>',
             city: '<%= event.city %>',
             state: '<%= event.state %>',
