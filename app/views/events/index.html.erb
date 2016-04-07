@@ -138,21 +138,6 @@
 <script>
 function initMap() {
 
-    // centerLat = 0;
-    // centerLng = 0;
-    // count = 0;
-    // <% @events.each do |event| %>
-    //     tmpLat = <%= event.latitude %>;
-    //     tmpLng = <%= event.longitude %>;
-    //     tmpPosition = {lat: tmpLat, lng: tmpLng};
-    //     centerLat = centerLat + tmpLat;
-    //     centerLng = centerLng + tmpLng;
-    //     count += 1;
-    // <% end %>
-    // centerLat = centerLat / count;
-    // centerLng = centerLng / count;
-    // center = { lat: centerLat, lng: centerLng };
-
     events = getEvents();
     map = new google.maps.Map(document.getElementById('map'), {
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -168,6 +153,7 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow(), marker, i;
 
     // Create all of the markers with their respective info windows
+    // Source: http://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
     for (i = 0; i < events.length; i++) {
         position = new google.maps.LatLng(events[i].position.lat,events[i].position.lng);
         // Extend the bounds of the map depending on where the new marker will be located
