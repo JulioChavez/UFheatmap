@@ -19,3 +19,4 @@
 //= require jquery
 //= require materialize-sprockets
 //= require init
+//= require jquery.turbolinks

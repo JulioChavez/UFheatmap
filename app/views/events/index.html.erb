@@ -48,21 +48,59 @@
 
 <div class="timeline">
 <% @events.each do |event| %>
-<div class="row">
-    <div class="col s12 m7">
       <div class="card">
 
-        <div class="card-content">
-          <div>
-          <%= event.title %>
-        </div>
-          <%= event.address %> <br>
-          <%= event.start_time %>
-        </div>
+          <!-- <div class="left">
+            <%= event.title %>
+            <%= event.address %>
+            <%= event.start_time %>
 
-        <div class="btn btn<%= event.id %> waves-effect waves-light", style="margin-left: 60px;">Confirm</div>
+          </div> -->
 
-        <div class="card-action">
+
+            <div class="card-right-border right teal">
+                <!--Place Btn Here-->
+
+                <div class="btn-hm cv-parent">
+                    <%= image_tag("Check@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
+                </div>
+
+                <div class="btn-hm cv-parent">
+                  <%= image_tag("Xmark@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
+                </div>
+
+            </div>
+
+            <div class="card-left">
+
+              <div class="card-title-hm">
+
+              <div class="left">
+                  <%= image_tag("hugh.png", :height => "50", :alt => "attendee_icon", :class => "img-circle") %>
+              </div>
+                <%= event.title %>
+              </div>
+              <div class="card-address">
+                <%= event.address %>
+              </div>
+              <div class="card-time">
+                <!-- <%= event.start_time %> -->
+                3:00pm
+              </div>
+              <div class="card-desc">
+                <!-- event_description -->
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              </div>
+            </div>
+
+
+
+
+        <!-- <div class="btn btn<%= event.id %> waves-effect waves-light", style="margin-left: 60px;">Confirm</div> -->
+
+   <!--    <div class="card-action">
           <div class="row">
             <div class="col s3">
                 <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "left") %>
@@ -84,9 +122,7 @@
               <% end %>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </div> -->
   </div>
 
   <script>

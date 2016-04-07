@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   # GET /users
   # GET /users.json
@@ -13,9 +14,17 @@ class UsersController < ApplicationController
     redirect_to '/'
   end
 
-  # GET /users/1
-  # GET /users/1.json
+  # GET /users/show?id=1
   def show
+    @events = Event.all
+    @user = User.find(params[:id])
+    if current_user.id == @user.id
+      puts "ok"
+   else
+     raise ActiveRecord::RecordNotFound ##Create user restricted access user
+     redirect_to new_user_session_path
+   end
+
   end
 
   # GET /users/new
