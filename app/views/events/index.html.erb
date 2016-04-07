@@ -171,8 +171,10 @@ function initMap() {
             return function() {
                 infoWindow.setContent(
                     '<b><h5>' + events[i].title + '</h5></b>' +
-                    '<p>' + events[i].street + '<br>' + events[i].city + ', ' +
-                    events[i].state + ' ' + events[i].zip_code + '</p>'
+                    '<p>' + events[i].street + '<br>' +
+                    events[i].city + ', ' + events[i].state + ' ' + events[i].zip_code + '<br><br>' +
+                    '<b><i><a href="https://maps.google.com?saddr=Current+Location&daddr='
+                    + events[i].position.lat + ','+ events[i].position.lng + '" target="_blank">Click Here for Directions</a></i></b>'+ '</p>'
                 );
                 infoWindow.open(map, marker);
             }
