@@ -101,9 +101,11 @@
 </div>
 <script>
         function initMap() {
+
+          var center = {lat: 29.649277, lng: -82.343901};
           map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
-            center: {lat: 29.649277, lng: -82.343901},
+            center: center,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           });
 
@@ -112,6 +114,25 @@
             map: map
           });
           heatmap.set('radius', 50);
+
+          var contentString = '<b><h5>Sample Event Title</h5></b>' +
+          '<p>Event Address</p>';
+
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+
+          var marker = new google.maps.Marker({
+            position: center,
+            map: map,
+            title: 'Thumbnail Event Title'
+          });
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+          google.maps.event.addListener(map, "click", function(event) {
+            infowindow.close();
+          });
         }
 
         function toggleHeatmap() {
@@ -157,8 +178,7 @@
 
 </script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIP5p2T5wk1ItO-FG0ZKAsZhrknSGC5Nk
-&signed_in=true&libraries=visualization&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIP5p2T5wk1ItO-FG0ZKAsZhrknSGC5Nk&signed_in=true&libraries=visualization&callback=initMap">
     </script>
   </body>
 </html>
