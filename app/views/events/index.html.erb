@@ -136,65 +136,139 @@
 
 </div>
 <script>
-        function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
-            center: {lat: 29.649277, lng: -82.343901},
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          });
+function initMap() {
 
-          heatmap = new google.maps.visualization.HeatmapLayer({
-            data: getPoints(),
-            map: map
-          });
-          heatmap.set('radius', 50);
-        }
+    events = getEvents();
+    map = new google.maps.Map(document.getElementById('map'), {
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    bounds = new google.maps.LatLngBounds();
 
-        function toggleHeatmap() {
-          heatmap.setMap(heatmap.getMap() ? null : map);
-        }
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: getPoints(),
+        map: map
+    });
+    heatmap.set('radius', 50);
 
-        function changeGradient() {
-          var gradient = [
-            'rgba(0, 255, 255, 0)',
-            'rgba(0, 255, 255, 1)',
-            'rgba(0, 191, 255, 1)',
-            'rgba(0, 127, 255, 1)',
-            'rgba(0, 63, 255, 1)',
-            'rgba(0, 0, 255, 1)',
-            'rgba(0, 0, 223, 1)',
-            'rgba(0, 0, 191, 1)',
-            'rgba(0, 0, 159, 1)',
-            'rgba(0, 0, 127, 1)',
-            'rgba(63, 0, 91, 1)',
-            'rgba(127, 0, 63, 1)',
-            'rgba(191, 0, 31, 1)',
-            'rgba(255, 0, 0, 1)'
-          ]
-          heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-        }
+    var infoWindow = new google.maps.InfoWindow(), marker, i;
 
-        function changeRadius() {
-          heatmap.set('radius', heatmap.get('radius') ? null : 50);
-        }
+    // Create all of the markers with their respective info windows
+    // Source: http://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
+    for (i = 0; i < events.length; i++) {
+        position = new google.maps.LatLng(events[i].position.lat,events[i].position.lng);
+        // Extend the bounds of the map depending on where the new marker will be located
+        bounds.extend(position);
 
-        function changeOpacity() {
-          heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-        }
+        // Initialize the marker
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: events[i].title
+        });
 
-        // Heatmap data: 500 Points
-        function getPoints() {
-          return [
-          <% @events.each do |event| %>
-            {location: new google.maps.LatLng(<%= event.latitude %>, <%= event.longitude %>),weight: <%= event.confirmed_attendees %>},
-          <% end %>
-          ];
-        }
+        // Assign each marker its own info window
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(
+                    '<b><h5>' + events[i].title + '</h5></b>' +
+                    '<p>' + events[i].street + '<br>' +
+                    events[i].city + ', ' + events[i].state + ' ' + events[i].zip_code + '<br><br>' +
+                    '<b><i><a href="https://maps.google.com?saddr=Current+Location&daddr='
+                    + events[i].position.lat + ','+ events[i].position.lng + '" target="_blank">Click Here for Directions</a></i></b>'+ '</p>'
+                );
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
+
+        // Automatically center the map fitting all markers on the screen
+        map.fitBounds(bounds);
+    }
+
+    // Close info windows when clicking outside of the info window (i.e. on the map)
+    google.maps.event.addListener(map, "click", function(event) {
+        infoWindow.close();
+    });
+
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(14);
+        google.maps.event.removeListener(boundsListener);
+    });
+}
+
+function toggleHeatmap() {
+    heatmap.setMap(heatmap.getMap() ? null : map);
+}
+
+function changeGradient() {
+    var gradient = [
+        'rgba(0, 255, 255, 0)',
+        'rgba(0, 255, 255, 1)',
+        'rgba(0, 191, 255, 1)',
+        'rgba(0, 127, 255, 1)',
+        'rgba(0, 63, 255, 1)',
+        'rgba(0, 0, 255, 1)',
+        'rgba(0, 0, 223, 1)',
+        'rgba(0, 0, 191, 1)',
+        'rgba(0, 0, 159, 1)',
+        'rgba(0, 0, 127, 1)',
+        'rgba(63, 0, 91, 1)',
+        'rgba(127, 0, 63, 1)',
+        'rgba(191, 0, 31, 1)',
+        'rgba(255, 0, 0, 1)'
+    ]
+    heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+}
+
+function changeRadius() {
+    heatmap.set('radius', heatmap.get('radius') ? null : 50);
+}
+
+function changeOpacity() {
+    heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
+}
+
+// Returns an array of all of the events passed in through the @events variable
+function getEvents() {
+    // Available attributes:
+    // title, start_time, food, swag, prizes, confirmed_attendees, declined_attendees, street, city, state, zip_code
+    return [
+        <% @events.each do |event| %>
+        {
+            title: '<%= event.title %>',
+            position: {
+                lat: <%= event.latitude %>,
+                lng: <%= event.longitude %>
+            },
+            confirmed_attendees: <%= event.confirmed_attendees %>,
+            // declined_attendees: <%= event.declined_attendees %>,
+            food: '<%= event.food %>',
+            swag: '<%= event.swag %>',
+            prizes: '<%= event.prizes %>',
+            street: '<%= event.street %>',
+            city: '<%= event.city %>',
+            state: '<%= event.state %>',
+            zip_code: <%= event.zip_code %>
+        },
+        <% end %>
+    ];
+}
+
+// Heatmap data: 500 Points
+function getPoints() {
+    return [
+        <% @events.each do |event| %>
+        {
+            location: new google.maps.LatLng(<%= event.latitude %>, <%= event.longitude %>),
+            weight: <%= event.confirmed_attendees %>
+        },
+        <% end %>
+    ];
+}
 
 </script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIP5p2T5wk1ItO-FG0ZKAsZhrknSGC5Nk
-&signed_in=true&libraries=visualization&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIP5p2T5wk1ItO-FG0ZKAsZhrknSGC5Nk&signed_in=true&libraries=visualization&callback=initMap">
     </script>
   </body>
 </html>
