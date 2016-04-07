@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'event/increment/:id' => 'events#increment'
   get 'event/delete/:id' => 'events#destroy'
 
-  devise_for :users, :controllers => { registrations: 'registrations'}
+  devise_for :users, :controllers => { registrations: 'registrations', sessions:'sessions'}
 
   devise_scope :user do
     delete 'logout', to: "devise/sessions#destroy"
