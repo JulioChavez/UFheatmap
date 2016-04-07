@@ -136,81 +136,132 @@
 
 </div>
 <script>
-        function initMap() {
+function initMap() {
 
-          var center = {lat: 29.649277, lng: -82.343901};
-          map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
-            center: center,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          });
+    centerLat = 0;
+    centerLng = 0;
+    count = 0;
+    <% @events.each do |event| %>
+        tmpLat = <%= event.latitude %>;
+        tmpLng = <%= event.longitude %>;
+        tmpPosition = {lat: tmpLat, lng: tmpLng};
+        centerLat = centerLat + tmpLat;
+        centerLng = centerLng + tmpLng;
+        count += 1;
+    <% end %>
+    centerLat = centerLat / count;
+    centerLng = centerLng / count;
+    center = { lat: centerLat, lng: centerLng };
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: center,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
 
-          heatmap = new google.maps.visualization.HeatmapLayer({
-            data: getPoints(),
-            map: map
-          });
-          heatmap.set('radius', 50);
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: getPoints(),
+        map: map
+    });
+    heatmap.set('radius', 50);
 
-          var contentString = '<b><h5>Sample Event Title</h5></b>' +
-          '<p>Event Address</p>';
+    events = getEvents();
 
-          var infowindow = new google.maps.InfoWindow({
-            content: contentString
-          });
+    var infoWindow = new google.maps.InfoWindow(), marker, i;
+    for (i = 0; i < events.length; i++) {
+        tmpPosition = events[i].position;
 
-          var marker = new google.maps.Marker({
-            position: center,
+        console.log(events[i].title);
+        contentString = '<b><h5>' + events[i].title + '</h5></b>' +
+        '<p>Event Address</p>';
+
+        marker = new google.maps.Marker({
+            position: tmpPosition,
             map: map,
-            title: 'Thumbnail Event Title'
-          });
-          marker.addListener('click', function() {
-            infowindow.open(map, marker);
-          });
-          google.maps.event.addListener(map, "click", function(event) {
-            infowindow.close();
-          });
-        }
+            title: events.title
+        });
+        // Allow each marker to have an info window
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(
+                    '<b><h5>' + events[i].title + '</h5></b>' +
+                    '<p>Event Address</p>'
+                );
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
+    }
 
-        function toggleHeatmap() {
-          heatmap.setMap(heatmap.getMap() ? null : map);
-        }
+    // Allow each marker to have an info window
+    google.maps.event.addListener(map, "click", function(event) {
+        infoWindow.close();
+    });
+}
 
-        function changeGradient() {
-          var gradient = [
-            'rgba(0, 255, 255, 0)',
-            'rgba(0, 255, 255, 1)',
-            'rgba(0, 191, 255, 1)',
-            'rgba(0, 127, 255, 1)',
-            'rgba(0, 63, 255, 1)',
-            'rgba(0, 0, 255, 1)',
-            'rgba(0, 0, 223, 1)',
-            'rgba(0, 0, 191, 1)',
-            'rgba(0, 0, 159, 1)',
-            'rgba(0, 0, 127, 1)',
-            'rgba(63, 0, 91, 1)',
-            'rgba(127, 0, 63, 1)',
-            'rgba(191, 0, 31, 1)',
-            'rgba(255, 0, 0, 1)'
-          ]
-          heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-        }
+function toggleHeatmap() {
+    heatmap.setMap(heatmap.getMap() ? null : map);
+}
 
-        function changeRadius() {
-          heatmap.set('radius', heatmap.get('radius') ? null : 50);
-        }
+function changeGradient() {
+    var gradient = [
+        'rgba(0, 255, 255, 0)',
+        'rgba(0, 255, 255, 1)',
+        'rgba(0, 191, 255, 1)',
+        'rgba(0, 127, 255, 1)',
+        'rgba(0, 63, 255, 1)',
+        'rgba(0, 0, 255, 1)',
+        'rgba(0, 0, 223, 1)',
+        'rgba(0, 0, 191, 1)',
+        'rgba(0, 0, 159, 1)',
+        'rgba(0, 0, 127, 1)',
+        'rgba(63, 0, 91, 1)',
+        'rgba(127, 0, 63, 1)',
+        'rgba(191, 0, 31, 1)',
+        'rgba(255, 0, 0, 1)'
+    ]
+    heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+}
 
-        function changeOpacity() {
-          heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-        }
+function changeRadius() {
+    heatmap.set('radius', heatmap.get('radius') ? null : 50);
+}
 
-        // Heatmap data: 500 Points
-        function getPoints() {
-          return [
-          <% @events.each do |event| %>
-            {location: new google.maps.LatLng(<%= event.latitude %>, <%= event.longitude %>),weight: <%= event.confirmed_attendees %>},
-          <% end %>
-          ];
-        }
+function changeOpacity() {
+    heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
+}
+
+function getEvents() {
+    // Available attributes...
+    // title, start_time, food, swag, prizes, confirmed_attendees, declined_attendees, street, city, state, zip_code
+    return [
+        <% @events.each do |event| %>
+        {
+            title: '<%= event.title %>',
+            position: {
+                lat: <%= event.latitude %>,
+                lng: <%= event.longitude %>
+            },
+            confirmed_attendees: <%= event.confirmed_attendees %>,
+            // declined_attendees: <%= event.declined_attendees %>,
+            street: '<%= event.street %>',
+            city: '<%= event.city %>',
+            state: '<%= event.state %>',
+            zip_code: <%= event.zip_code %>
+        },
+        <% end %>
+    ];
+}
+
+// Heatmap data: 500 Points
+function getPoints() {
+    return [
+        <% @events.each do |event| %>
+        {
+            location: new google.maps.LatLng(<%= event.latitude %>, <%= event.longitude %>),
+            weight: <%= event.confirmed_attendees %>
+        },
+        <% end %>
+    ];
+}
 
 </script>
     <script async defer
