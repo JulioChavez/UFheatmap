@@ -3,10 +3,6 @@ class SessionsController < Devise::SessionsController
     super
   end
 
-  def after_sign_in_path_for(resource)
-  end
-
-
   protected
 
   def auth_hash
