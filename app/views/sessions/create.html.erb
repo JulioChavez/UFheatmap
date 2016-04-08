@@ -3,10 +3,12 @@
 
 
 <% if current_user.has_role? :organizer %> <!--User is Organizer-->
-  If i can see this i'm an organizer
+
+This is an organizer
+<%= link_to 'Go to Dashboard', organizer_path(current_user.id) %>
 
 <% else %>
-
-<%= link_to 'To Events', events_path %>  <!--User is Basic Attendee-->
+This is an organizer
+<%= link_to 'Goto To Events', events_path %>  <!--User is Basic Attendee-->
 
 <% end %>
