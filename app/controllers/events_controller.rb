@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :redirect_if_not_organizer, only: [:show, :new, :create, :edit, :update, :destroy]
+  before_action :redirect_if_not_attendee, only: [:index]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   # GET /events
@@ -79,5 +81,20 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event).permit(:title, :start_time, :food, :swag, :prizes, :confirmed_attendees, :declined_attendees, :street, :city, :state, :zip_code)
+    end
+
+  # Checks if the user is an Attendee. If not, redirect to homepage
+  private
+    def redirect_if_not_attendee
+      if (!current_user.has_role? :attendee)
+        redirect_to "/"
+      end
+    end
+
+    # Checks if the user is an Organizer. If not, redirect to homepage
+    def redirect_if_not_organizer
+      if (!current_user.has_role? :organizer)
+        redirect_to "/"
+      end
     end
 end
