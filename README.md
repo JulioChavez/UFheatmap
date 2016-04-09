@@ -1,2 +1,2 @@
-# UFheatmap
-CEN3913 Spring 2016 - Senior project
+# Gathr
+CEN4914 Spring 2016 - Senior project
