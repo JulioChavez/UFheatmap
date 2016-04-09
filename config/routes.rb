@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   resources :events
   get 'event/increment/:id' => 'events#increment'
-  devise_for :users, :controllers => { registrations: 'registrations'}
+  get 'event/delete/:id' => 'events#destroy'
+
+  devise_for :users, :controllers => { registrations: 'registrations', sessions:'sessions'}
 
   devise_scope :user do
     delete 'logout', to: "devise/sessions#destroy"
@@ -11,12 +13,13 @@ Rails.application.routes.draw do
   root 'home#new'
   get 'playground/index'
 
+
   #get '/auth/:provider/callback', to: 'sessions#create'
 
   get 'auth/facebook', as: "auth_provider"
   get 'auth/facebook/callback', to: 'users#login'
 
-  match ':controller(/:action(/:id))', :via => :get
+  #match ':controller(/:action(/:id))', :via => :get
   get 'users/show'
 
   # The priority is based upon order of creation: first created -> highest priority.

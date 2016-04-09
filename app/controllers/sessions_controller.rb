@@ -1,8 +1,6 @@
-class SessionsController < ApplicationController
+class SessionsController < Devise::SessionsController
   def create
-  	@user = User.where(auth_hash: auth_hash).first_or_create
-    self.current_user = @user
-    redirect_to '/'
+    super
   end
 
   protected

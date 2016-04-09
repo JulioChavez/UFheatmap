@@ -19,12 +19,14 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @event.destroy # destroy old event before creating a new one
   end
 
   # POST /events
   # POST /events.json
   def create
     @event = Event.new(event_params)
+    @event.creator_id = current_user.id
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -58,9 +60,11 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
+    @event = Event.find(params[:id])
     @event.destroy
+
     respond_to do |format|
-      format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
