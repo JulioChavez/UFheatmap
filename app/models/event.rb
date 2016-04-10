@@ -9,10 +9,6 @@ class Event < ActiveRecord::Base
 	end
 
 	def increment_attendance
-		self.confirmed_attendees ||= 0
-		self.confirmed_attendees += 1
-		self.save!
-
 		# current_user = User.find(params[:id])
 		current_user = User.find(1)
 		puts("BEFORE SAVE, Attendee List: #{self.users}")
@@ -21,7 +17,11 @@ class Event < ActiveRecord::Base
 		if (!self.users.include?(current_user))
 			puts("User \"#{current_user.first_name} #{current_user.last_name}\" added to Event \"#{self.title}\"")
 
-			# Add Attendee to the list of attedees in this event
+			# Increment Attendee count for this Event
+			self.confirmed_attendees ||= 0
+			self.confirmed_attendees += 1
+
+			# Add Attendee to the list of attedees in this Event
 			self.users << current_user
 			self.save!
 
