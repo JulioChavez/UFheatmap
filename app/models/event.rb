@@ -15,11 +15,18 @@ class Event < ActiveRecord::Base
 
 		# current_user = User.find(params[:id])
 		current_user = User.find(1)
-		puts("Attendee ID: #{current_user.id}")
-		puts("Event ID: #{self.id}")
-		puts("Attendee List: #{self.users}")
-		# self.users.create(id: current_user.id)
-		# self.users << current_user
-		# self.save
+		puts("BEFORE SAVE, Attendee List: #{self.users}")
+
+		# Check if Attendee is already attending this Event
+		if (!self.users.include?(current_user))
+			puts("User \"#{current_user.first_name} #{current_user.last_name}\" added to Event \"#{self.title}\"")
+
+			# Add Attendee to the list of attedees in this event
+			self.users << current_user
+			self.save!
+
+			puts("AFTER SAVE, Attendee List: #{self.users}")
+		end
+
 	end
 end
