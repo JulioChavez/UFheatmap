@@ -1,10 +1,11 @@
 <div class="row">
   <div class="col s12">
-    <%= image_tag("gathr_logo.png", :alt => "outFire", size: "50x79", class: "center") %>
+    <%= image_tag("gathr_logo.png", :alt => "outFire", size: "50x79", class: "center session-logo") %>
   </div>
 </div>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
   <div class="form-inputs text-center center-form-h">
     <%= f.input :email, required: false, autofocus: true %>
     <%= f.input :password, required: false %>
@@ -14,7 +15,9 @@
   <div class="form-actions center btn-h">
     <%= f.button :submit, "Log in" %>
   </div>
+
 <% end %>
+
 <div class="center link-to-signup">
   <%= link_to('Don\'t have an account?', new_user_registration_path) %>
 </div>
