@@ -20,10 +20,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if current_user.id == @user.id
       puts "ok"
-   else
-     raise ActiveRecord::RecordNotFound ##Create user restricted access user
-     redirect_to new_user_session_path
-   end
+    else
+      raise ActiveRecord::RecordNotFound ##Create user restricted access user
+      redirect_to new_user_session_path
+    end
 
   end
 
