@@ -20,6 +20,11 @@ p {
   line-height: 2rem;
 }
 
+#logo-container{
+  background-color: white;
+  height: 10px
+}
+
 .button-collapse {
   color: #26a69a;
 }
@@ -64,6 +69,10 @@ footer.page-footer {
 .g-red {
   background-color: #D54A41;
 }
+.nav-link{
+  margin-top: 15px;
+}
+
 
 .g-orange {
   background-color: #EE7F52 !important;
