@@ -20,8 +20,9 @@ p {
   line-height: 2rem;
 }
 
-a:hover {
-    background-color: black;
+#logo-container{
+  background-color: white;
+  height: 10px
 }
 
 .button-collapse {
@@ -68,6 +69,10 @@ footer.page-footer {
 .g-red {
   background-color: #D54A41;
 }
+.nav-link{
+  margin-top: 15px;
+}
+
 
 .g-orange {
   background-color: #EE7F52 !important;
