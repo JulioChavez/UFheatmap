@@ -16,8 +16,9 @@ class UsersController < ApplicationController
 
   # GET /users/show?id=1
   def show
-    @events = Event.all
     @user = User.find(params[:id])
+    @events = Event.where("creator_id = #{@user.id}").order(:start_time)
+
     if current_user.id == @user.id
       puts "ok"
     else
