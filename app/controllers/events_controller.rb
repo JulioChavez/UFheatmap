@@ -3,10 +3,19 @@ class EventsController < ApplicationController
   before_action :redirect_if_not_attendee, only: [:index]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
+  @is_attending ||= false
+
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    if @is_attending
+      puts "In IndexView ... is_attending == true"
+      @events = User.find(current_user.id).events
+      @is_attending = false
+    else
+      puts "In IndexView ... is_attending == false"
+      @events = Event.all
+    end
   end
 
   # GET /events/1
@@ -53,6 +62,18 @@ class EventsController < ApplicationController
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def attending
+    attending = User.find(1).events
+    puts "*********"
+    puts "Events = "
+    puts attending
+    puts "**********"
+    @is_attending = true
+    @events = attending
+    #render json: { success: @events}, status: :ok
+    redirect_to "/"
   end
 
   def increment
