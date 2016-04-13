@@ -14,7 +14,7 @@ class EventsController < ApplicationController
       @is_attending = false
     else
       puts "In IndexView ... is_attending == false"
-      @events = Event.all
+      @events = Event.order(confirmed_attendees: :desc)
     end
   end
 
