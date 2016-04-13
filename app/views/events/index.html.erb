@@ -50,42 +50,21 @@
       </a>
 
       <ul class="right hide-on-med-and-down">
-        <% if user_signed_in? %>
         <li>
-        <%= link_to('Events', events_path) %>
+          <%= link_to('Events', events_path) %>
         </li>
-          <li>
-            <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-          </li>
-          <% else %>
-          <li>
-            <%= link_to('Login', new_user_session_path) %>
-          </li>
-          <% end %>
+        <li>
+          <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+        </li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <% if user_signed_in? %>
         <li>
-        <%= link_to('Events', events_path) %>
+          <%= link_to('Events', events_path) %>
         </li>
-          <li>
-            <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-          </li>
-          <% else %>
-          <li>
-            <%= link_to('Login', new_user_session_path) %>
-          </li>
-          <li>
-            <%= link_to('Sign Up', new_user_registration_path) %>
-          </li>
-          <li class="page-scroll">
-            <a href="#about">About</a>
-          </li>
-          <li class="page-scroll">
-            <a href="#squad">Squad</a>
-          </li>
-          <% end %>
+        <li>
+          <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+        </li>
       </ul>
       <a href="" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
@@ -99,6 +78,7 @@
 
 <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 
+  <div id="Attending" class="btn btn waves-effect waves-light", style="margin-left: 60px;"> Display to Attending</div>
 <div class="timeline">
 <% @events.each do |event| %>
       <div class="card">
@@ -183,6 +163,14 @@
   })
   </script>
 <% end %>
+
+<script>
+$("#Attending").click(function() {
+  $.get( "/event/attending/", function( data ) {
+    alert( "pushed btn" );
+  });
+})
+</script>
 
 </div>
 <script>
