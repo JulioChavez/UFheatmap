@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :redirect_if_not_organizer, only: [:show, :new, :create, :edit, :update, :destroy]
+  before_action :redirect_if_not_organizer, only: [:show, :new, :create, :edit, :update, :destroy, :attending]
   before_action :redirect_if_not_attendee, only: [:index]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
@@ -16,6 +16,12 @@ class EventsController < ApplicationController
       puts "In IndexView ... is_attending == false"
       @events = Event.order(confirmed_attendees: :desc)
     end
+  end
+
+  #GET /events/attending
+  def attending
+    #@events = User.find.(current_user.id).events   
+    @events = User.find(1).events
   end
 
   # GET /events/1
@@ -64,18 +70,6 @@ class EventsController < ApplicationController
     end
   end
 
-  def attending
-    attending = User.find(1).events
-    puts "*********"
-    puts "Events = "
-    puts attending
-    puts "**********"
-    @is_attending = true
-    @events = attending
-    #render json: { success: @events}, status: :ok
-    redirect_to "/"
-  end
-
   def increment
     @event = Event.find(params[:id])
 
@@ -121,14 +115,14 @@ class EventsController < ApplicationController
   private
     def redirect_if_not_attendee
       if (!current_user.has_role? :attendee)
-        redirect_to "/"
+      #  redirect_to "/"
       end
     end
 
     # Checks if the user is an Organizer. If not, redirect to homepage
     def redirect_if_not_organizer
       if (!current_user.has_role? :organizer)
-        redirect_to "/"
+        #redirect_to "/"
       end
     end
 end
