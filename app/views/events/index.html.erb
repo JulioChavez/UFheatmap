@@ -121,10 +121,7 @@
                 3:00pm
               </div>
               <div class="card-desc">
-                <!-- event_description -->
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                <%= event.description %>
               </div>
             </div>
 
@@ -269,11 +266,12 @@ function changeOpacity() {
 // Returns an array of all of the events passed in through the @events variable
 function getEvents() {
     // Available attributes:
-    // title, start_time, food, swag, prizes, confirmed_attendees, declined_attendees, street, city, state, zip_code
+    // title, description, start_time, food, swag, prizes, confirmed_attendees, declined_attendees, street, city, state, zip_code
     return [
         <% @events.each do |event| %>
         {
             title: '<%= event.title %>',
+            description: '<%= event.description %>'
             position: {
                 lat: <%= event.latitude %>,
                 lng: <%= event.longitude %>

@@ -16,6 +16,11 @@
     <%= f.text_field :title %>
   </div>
 
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+
   <%= f.input :start_time, input_html: {class:'datepicker'} %>
 
   <div class="field">
