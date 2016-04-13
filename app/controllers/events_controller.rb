@@ -3,10 +3,19 @@ class EventsController < ApplicationController
   before_action :redirect_if_not_attendee, only: [:index]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
+  @is_attending ||= false
+
   # GET /events
   # GET /events.json
   def index
-    @events = Event.order(confirmed_attendees: :desc)
+    if @is_attending
+      puts "In IndexView ... is_attending == true"
+      @events = User.find(current_user.id).events
+      @is_attending = false
+    else
+      puts "In IndexView ... is_attending == false"
+      @events = Event.order(confirmed_attendees: :desc)
+    end
   end
 
   # GET /events/1
@@ -55,9 +64,34 @@ class EventsController < ApplicationController
     end
   end
 
+  def attending
+    attending = User.find(1).events
+    puts "*********"
+    puts "Events = "
+    puts attending
+    puts "**********"
+    @is_attending = true
+    @events = attending
+    #render json: { success: @events}, status: :ok
+    redirect_to "/"
+  end
+
   def increment
     @event = Event.find(params[:id])
-    render json: { success: @event.increment_attendance }, status: :ok
+
+    if (!@event.users.include?(current_user))
+      # puts "*****************"
+      # puts "Attendee not found. Adding #{current_user.first_name} to the event list..."
+      # puts "*****************"
+      @event.users << current_user
+      render json: { success: @event.increment_attendance }, status: :ok
+
+    else
+      # puts "*****************"
+      # puts "You are already attending this event!"
+      # puts "*****************"
+      render :nothing => true, :status => :ok
+    end
   end
 
   # DELETE /events/1
