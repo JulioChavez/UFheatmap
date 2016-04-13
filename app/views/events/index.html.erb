@@ -51,19 +51,27 @@
 
       <ul class="right hide-on-med-and-down">
         <li>
-          <%= link_to('Events', events_path) %>
+          <%= link_to('Events', events_path, {:class => "nav-link"}) %>
         </li>
-        <li>
-          <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+
+        <li class="nav-link">
+          <a>Attending</a>
+        </li>
+
+        <li class="nav-link">
+          <%= link_to('Logout', destroy_user_session_path ,:method => :delete) %>
         </li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
         <li>
-          <%= link_to('Events', events_path) %>
+          <%= link_to('Events', events_path, {:class => "nav-link"}) %>
         </li>
         <li>
-          <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+            <%= link_to('Logout', destroy_user_session_path ,:method => :delete) %>
+        </li>
+        <li>
+          <a>Attending</a>
         </li>
       </ul>
       <a href="" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -76,9 +84,7 @@
   <div id="map" style="width: 100%; height: 400px"></div>
 </div>
 
-<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 
-  <div id="Attending" class="btn btn waves-effect waves-light", style="margin-left: 60px;"> Display to Attending</div>
 <div class="timeline">
 <% @events.each do |event| %>
       <div class="card">
@@ -98,7 +104,7 @@
                     <%= image_tag("Check@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
                 </div>
 
-                <div class="btn-hm cv-parent">
+                <div class="btn-hm waves-effect waves-light cv-parent">
                   <%= image_tag("Xmark@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
                 </div>
 
@@ -153,7 +159,7 @@
   </div>
 
   <script>
-  $(".btn-hm" + <%= event.id %>).click(function() {
+  $(".btn" + <%= event.id %>).click(function() {
     $.get( "/event/increment/" + <%= event.id %>, function( data ) {
       alert( "You have been confirmed!" );
     });
