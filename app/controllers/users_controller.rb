@@ -24,7 +24,6 @@ class UsersController < ApplicationController
     #  raise ActiveRecord::RecordNotFound ##Create user restricted access user
     #  redirect_to new_user_session_path
       redirect_to '/'
-    re
    end
 
   end
