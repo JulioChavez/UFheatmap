@@ -1,1 +1,317 @@
-<h1> Attending <h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Events</title>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            #map {
+                height: 100%;
+            }
+            #floating-panel {
+                position: absolute;
+                top: 10px;
+                left: 25%;
+                z-index: 5;
+                background-color: #fff;
+                padding: 5px;
+                border: 1px solid #999;
+                text-align: center;
+                font-family: 'Roboto','sans-serif';
+                line-height: 30px;
+                padding-left: 10px;
+            }
+
+            #floating-panel {
+                background-color: #fff;
+                border: 1px solid #999;
+                left: 25%;
+                padding: 5px;
+                position: absolute;
+                top: 10px;
+                z-index: 5;
+            }
+        </style>
+
+
+
+    </head>
+
+<body style="
+    background-color: #F5F5F5;">
+
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">
+        <%= image_tag("gathr_logo.png", :alt => "outFire", size: "35x55")%>
+      </a>
+
+      <ul class="right hide-on-med-and-down">
+        <li>
+          <%= link_to('Events', events_path, {:class => "nav-link"}) %>
+        </li>
+
+        <li class="nav-link">
+          <a>Attending</a>
+        </li>
+
+        <li class="nav-link">
+          <%= link_to('Logout', destroy_user_session_path ,:method => :delete) %>
+        </li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li>
+          <%= link_to('Events', events_path, {:class => "nav-link"}) %>
+        </li>
+        <li>
+            <%= link_to('Logout', destroy_user_session_path ,:method => :delete) %>
+        </li>
+        <li>
+          <a>Attending</a>
+        </li>
+      </ul>
+      <a href="" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+<p id="notice"><%= notice %></p>
+
+<div style='width: auto; display:inline;'>
+  <div id="map" style="width: 100%; height: 400px"></div>
+</div>
+
+
+<div class="timeline">
+<% @events.each do |event| %>
+      <div class="card">
+
+          <!-- <div class="left">
+            <%= event.title %>
+            <%= event.address %>
+            <%= event.start_time %>
+
+          </div> -->
+
+
+            <div class="card-right-border right teal">
+                <!--Place Btn Here-->
+
+                <div class="btn-hm btn<%= event.id %> waves-effect waves-light cv-parent">
+                    <%= image_tag("Check@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
+                </div>
+
+                <div class="btn-hm waves-effect waves-light cv-parent">
+                  <%= image_tag("Xmark@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
+                </div>
+
+            </div>
+
+            <div class="card-left">
+
+              <div class="card-title-hm">
+
+              <div class="left">
+                  <%= image_tag("hugh.png", :height => "50", :alt => "attendee_icon", :class => "img-circle") %>
+              </div>
+                <%= event.title %>
+              </div>
+              <div class="card-address">
+                <%= event.address %>
+              </div>
+              <div class="card-time">
+                <!-- <%= event.start_time %> -->
+                3:00pm
+              </div>
+              <div class="card-desc">
+                <%= event.description %>
+              </div>
+            </div>
+
+        <!-- <div class="btn btn<%= event.id %> waves-effect waves-light", style="margin-left: 60px;">Confirm</div> -->
+
+   <!--    <div class="card-action">
+          <div class="row">
+            <div class="col s3">
+                <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "left") %>
+                <div class="card-action-attendee-count"><%= event.confirmed_attendees %></div>
+            </div>
+            <div class="col s3">
+              <% if event.food %>
+                <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
+              <% end %>
+            </div>
+            <div class="col s3">
+              <% if event.swag %>
+                <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
+              <% end %>
+            </div>
+            <div class="col s3">
+              <% if event.prizes %>
+                <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
+              <% end %>
+            </div>
+          </div>
+        </div> -->
+  </div>
+
+  <script>
+  $(".btn" + <%= event.id %>).click(function() {
+    $.get( "/event/increment/" + <%= event.id %>, function( data ) {
+      alert( "You have been confirmed!" );
+    });
+  })
+  </script>
+<% end %>
+
+<script>
+$("#Attending").click(function() {
+  $.get( "/event/attending/", function( data ) {
+    alert( "pushed btn" );
+  });
+})
+</script>
+
+</div>
+<script>
+function initMap() {
+
+    events = getEvents();
+    map = new google.maps.Map(document.getElementById('map'), {
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    bounds = new google.maps.LatLngBounds();
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: getPoints(),
+        map: map
+    });
+    heatmap.set('radius', 50);
+
+    var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+    // Create all of the markers with their respective info windows
+    // Source: http://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
+    for (i = 0; i < events.length; i++) {
+        position = new google.maps.LatLng(events[i].position.lat,events[i].position.lng);
+        // Extend the bounds of the map depending on where the new marker will be located
+        bounds.extend(position);
+
+        // Initialize the marker
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: events[i].title
+        });
+
+        // Assign each marker its own info window
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(
+                    '<b><h5>' + events[i].title + '</h5></b>' +
+                    '<p>' + events[i].street + '<br>' +
+                    events[i].city + ', ' + events[i].state + ' ' + events[i].zip_code + '<br><br>' +
+                    '<b><i><a href="https://maps.google.com?saddr=Current+Location&daddr='
+                    + events[i].position.lat + ','+ events[i].position.lng + '" target="_blank">Click Here for Directions</a></i></b>'+ '</p>'
+                );
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
+
+        // Automatically center the map fitting all markers on the screen
+        map.fitBounds(bounds);
+    }
+
+    // Close info windows when clicking outside of the info window (i.e. on the map)
+    google.maps.event.addListener(map, "click", function(event) {
+        infoWindow.close();
+    });
+
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(14);
+        google.maps.event.removeListener(boundsListener);
+    });
+}
+
+function toggleHeatmap() {
+    heatmap.setMap(heatmap.getMap() ? null : map);
+}
+
+function changeGradient() {
+    var gradient = [
+        'rgba(0, 255, 255, 0)',
+        'rgba(0, 255, 255, 1)',
+        'rgba(0, 191, 255, 1)',
+        'rgba(0, 127, 255, 1)',
+        'rgba(0, 63, 255, 1)',
+        'rgba(0, 0, 255, 1)',
+        'rgba(0, 0, 223, 1)',
+        'rgba(0, 0, 191, 1)',
+        'rgba(0, 0, 159, 1)',
+        'rgba(0, 0, 127, 1)',
+        'rgba(63, 0, 91, 1)',
+        'rgba(127, 0, 63, 1)',
+        'rgba(191, 0, 31, 1)',
+        'rgba(255, 0, 0, 1)'
+    ]
+    heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+}
+
+function changeRadius() {
+    heatmap.set('radius', heatmap.get('radius') ? null : 50);
+}
+
+function changeOpacity() {
+    heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
+}
+
+// Returns an array of all of the events passed in through the @events variable
+function getEvents() {
+    // Available attributes:
+    // title, description, start_time, food, swag, prizes, confirmed_attendees, declined_attendees, street, city, state, zip_code
+    return [
+        <% @events.each do |event| %>
+        {
+            title: '<%= event.title %>',
+            description: '<%= event.description %>',
+            position: {
+                lat: <%= event.latitude %>,
+                lng: <%= event.longitude %>
+            },
+            confirmed_attendees: <%= event.confirmed_attendees %>,
+            // declined_attendees: <%= event.declined_attendees %>,
+            food: '<%= event.food %>',
+            swag: '<%= event.swag %>',
+            prizes: '<%= event.prizes %>',
+            street: '<%= event.street %>',
+            city: '<%= event.city %>',
+            state: '<%= event.state %>',
+            zip_code: <%= event.zip_code %>
+        },
+        <% end %>
+    ];
+}
+
+// Heatmap data: 500 Points
+function getPoints() {
+    return [
+        <% @events.each do |event| %>
+        {
+            location: new google.maps.LatLng(<%= event.latitude %>, <%= event.longitude %>),
+            weight: <%= event.confirmed_attendees %>
+        },
+        <% end %>
+    ];
+}
+
+</script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIP5p2T5wk1ItO-FG0ZKAsZhrknSGC5Nk&signed_in=true&libraries=visualization&callback=initMap">
+    </script>
+  </body>
+</html>
