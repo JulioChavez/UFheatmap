@@ -94,7 +94,7 @@
             <div class="card-right-border right teal">
                 <!--Place Btn Here-->
 
-                <div class="btn-hm cv-parent">
+                <div class="btn-hm btn<%= event.id %> waves-effect waves-light cv-parent">
                     <%= image_tag("Check@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
                 </div>
 
@@ -125,7 +125,7 @@
               </div>
             </div>
 
-        <div class="btn btn<%= event.id %> waves-effect waves-light", style="margin-left: 60px;">Confirm</div>
+        <!-- <div class="btn btn<%= event.id %> waves-effect waves-light", style="margin-left: 60px;">Confirm</div> -->
 
    <!--    <div class="card-action">
           <div class="row">
@@ -153,7 +153,7 @@
   </div>
 
   <script>
-  $(".btn" + <%= event.id %>).click(function() {
+  $(".btn-hm" + <%= event.id %>).click(function() {
     $.get( "/event/increment/" + <%= event.id %>, function( data ) {
       alert( "You have been confirmed!" );
     });
