@@ -78,7 +78,20 @@ class EventsController < ApplicationController
 
   def increment
     @event = Event.find(params[:id])
-    render json: { success: @event.increment_attendance }, status: :ok
+
+    if (!@event.users.include?(current_user))
+      puts "*****************"
+      puts "Attendee not found. Adding #{current_user.first_name} to the event list..."
+      puts "*****************"
+      @event.users << current_user
+      render json: { success: @event.increment_attendance }, status: :ok
+
+    else
+      puts "*****************"
+      puts "You are already attending this event!"
+      puts "*****************"
+      render :nothing => true, :status => :ok
+    end
   end
 
   # DELETE /events/1
