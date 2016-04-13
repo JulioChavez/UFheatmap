@@ -271,7 +271,7 @@ function getEvents() {
         <% @events.each do |event| %>
         {
             title: '<%= event.title %>',
-            description: '<%= event.description %>'
+            description: '<%= event.description %>',
             position: {
                 lat: <%= event.latitude %>,
                 lng: <%= event.longitude %>
