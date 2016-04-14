@@ -14,15 +14,22 @@ class EventsController < ApplicationController
       @is_attending = false
     else
       puts "In IndexView ... is_attending == false"
-      @events = Event.order(confirmed_attendees: :desc)
+      @events = Event.order(confirmed_attendees: :desc) # Trending
+      #  @events = Event.order(start_time:)                # Latest
+      #  @events = User.find(current_user.id).events       # Attending
     end
   end
 
-  #GET /events/attending
+  #GET /attending
   def attending
-    #@events = User.find.(current_user.id).events   
-    @events = User.find(1).events
+    @events = User.find(current_user.id).events
   end
+
+  #GET /latest
+  def latest
+    @events = Event.order(:start_time)
+  end
+
 
   # GET /events/1
   # GET /events/1.json
