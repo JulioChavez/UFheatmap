@@ -30,6 +30,7 @@ img.center {
    margin: 0 auto;
    margin-left: 0%;
    margin-right: 0%;
+   margin-top: 10px;
 }
 
 .card {
@@ -83,6 +84,11 @@ img.center {
   weight: bold;
 }
 
+.btn-filter{
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
 .btn {
   width: 50%;
    /* Set the margin-left and margin-right automatically set */
@@ -124,6 +130,7 @@ a:hover, a:focus {
 /* Menu bar*/
 #cssmenu {
   background: #D54A41;
+  margin-bottom: 10px;
   width: auto;
 }
 #cssmenu ul {
