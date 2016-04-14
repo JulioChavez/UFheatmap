@@ -118,7 +118,8 @@
               <div class="left">
                   <%= image_tag("hugh.png", :height => "50", :alt => "attendee_icon", :class => "img-circle") %>
               </div>
-                <%= event.title %>
+              <div class="title-my">
+              <%= event.title %>
               </div>
               <div class="card-address">
                 <%= event.address %>
@@ -133,21 +134,21 @@
 
 
               <div class="row">
-                <div class="col s3">
-                    <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "center") %>
+                <div class="col s3 cv-parent img-perk attendance-count">
+                    <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "center ") %>
                     <%= event.confirmed_attendees %>
                 </div>
-                <div class="col s3">
+                <div class="col s3 img-perk">
                   <% if event.food %>
                     <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
                   <% end %>
                 </div>
-                <div class="col s3">
+                <div class="col s3 img-perk">
                   <% if event.swag %>
                     <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
                   <% end %>
                 </div>
-                <div class="col s3">
+                <div class="col s3 img-perk">
                   <% if event.prizes %>
                     <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
                   <% end %>

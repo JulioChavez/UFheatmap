@@ -21,6 +21,10 @@ img.center {
   margin-left: 15px;
 }
 
+.img-perk {
+  //padding-top: 25px !important;
+}
+
 .timeline {
    /* Set the margin-left and margin-right automatically set */
    margin: 0 auto;
@@ -31,8 +35,12 @@ img.center {
 .card {
   margin-left: 10px;
   margin-right: 10px;
-  height: 225px;
+  height: 245px;
   width: 100%;
+}
+
+.attendance-count{
+  font-size: 20px;
 }
 
 .card-left{
@@ -48,11 +56,22 @@ img.center {
 
 .card-title-hm{
   font-size: 16px;
-  font-weight: 300;
+  padding-bottom: 10px;
 }
 
-.card-addr{
+.title-my{
+  font-weight: bold;
+  font-size: 25px;
+  padding-bottom: 10px;
+}
 
+.card-address{
+  font-size: 17px;
+  padding-bottom: 5px;
+}
+
+.card-time{
+  font-size: 19px;
 }
 
 .card-desc{
