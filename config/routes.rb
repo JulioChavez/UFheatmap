@@ -2,8 +2,10 @@ Rails.application.routes.draw do
 
   resources :events
   get 'event/increment/:id' => 'events#increment'
-  get 'event/attending' => 'events#attending'
   get 'event/delete/:id' => 'events#destroy'
+
+  get 'attending', to: 'events#attending'
+  get 'latest', to: 'events#latest'
 
   devise_for :users, :controllers => { registrations: 'registrations', sessions:'sessions'}
 
