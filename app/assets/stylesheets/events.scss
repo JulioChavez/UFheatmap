@@ -6,6 +6,14 @@ img.center {
     margin: 0 auto;
 }
 
+.red-gathr{
+  background-color: #f96e5b !important;
+}
+
+.red-gathr-font{
+  color: #f96e5b !important;
+}
+
 .center-form {
   margin-left:75px;
   margin-right:75px;
@@ -129,7 +137,7 @@ a:hover, a:focus {
 
 /* Menu bar*/
 #cssmenu {
-  background: #D54A41;
+  background: white;
   margin-bottom: 10px;
   width: auto;
 }
@@ -177,7 +185,7 @@ a:hover, a:focus {
   transition: color .25s;
 }
 #cssmenu ul li a:hover {
-  background: #f96e5b;
+  background: white;
   width: auto;
 }
 #cssmenu ul li a:hover:before {

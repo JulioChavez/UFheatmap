@@ -80,11 +80,39 @@
 
 <div class="center" id='cssmenu'>
 <ul>
-   <li><a href='/events'><span>Trending</span></a></li>
-   <li><a href='/latest'><span>Lastest</span></a></li>
-   <li class="active" ><a href='/attending'><span>Atteding</span></a></li>
+   <li><a href='/events' class="red-gathr-font" ><span>Trending</span></a></li>
+   <li><a href='/latest' class="red-gathr-font"><span>Lastest</span></a></li>
+   <li class="active"><a href='/attending' class="red-gathr-font"><span>Atteding</span></a></li>
 </ul>
 </div>
+
+<!-- Modal Trigger -->
+<div id="filter" class="waves-effect waves-light btn modal-trigger red-gathr" style="width:100%">
+  Filter
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+  <ul class="collection">
+      <li class="collection-item avatar">
+        <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
+          <p>
+            <input type="checkbox" id="test5" />
+            <label for="test5">Red</label>
+          </p>
+      </li>
+  </ul>
+
+
+
+
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
+
+
+
 
 <div class="timeline">
 <% @events.each do |event| %>
@@ -101,11 +129,11 @@
             <div class="card-right-border right teal">
                 <!--Place Btn Here-->
 
-                <div class="btn-hm btn<%= event.id %> waves-effect waves-light cv-parent">
+                <div class="btn-hm btn<%= event.id %> waves-effect waves-light cv-parent red-gathr">
                     <%= image_tag("Check@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
                 </div>
 
-                <div class="btn-hm waves-effect waves-light cv-parent">
+                <div class="btn-hm waves-effect waves-light cv-parent red-gathr">
                   <%= image_tag("Xmark@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
                 </div>
 
@@ -195,6 +223,10 @@
 <% end %>
 
 <script>
+$('#filter').click(function(){
+  $('#modal1').openModal();
+})
+
 $("#Attending").click(function() {
   $.get( "/event/attending/", function( data ) {
     alert( "pushed btn" );
