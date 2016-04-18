@@ -30,10 +30,12 @@
                 <%= link_to image_tag("ic-edit@2x.png", :height => "50", :alt => "edit_icon", :class => "img-center cv-child"), edit_event_path(event) %>
 
 
-                <!-- <div class="btn-hm cv-parent">
+                <div class="btn-hm cv-parent">
                   <%= link_to "delete", {controller: "events" ,action: "destroy", id: event.id },
                                 method: :delete, data: { confirm: "Are you sure?" } %>
-                </div> -->
+                  <%= link_to image_tag("ic-trash@2x.png", :height => "50", :alt => "trash_icon", :class => "img-center cv-child") %>
+
+                </div>
             </div>
 
             <div class="card-left">
