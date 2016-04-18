@@ -81,13 +81,13 @@
 <div class="center" id='cssmenu'>
 <ul>
    <li class="active" ><a href='/events'><span>Trending</span></a></li>
-   <li><a href='/latest'><span>Lastest</span></a></li>
-   <li><a href='/attending'><span>Atteding</span></a></li>
+   <li><a href='/latest' class="red-gathr-font"><span>Lastest</span></a></li>
+   <li><a href='/attending' class="red-gathr-font"><span>Atteding</span></a></li>
 </ul>
 </div>
 
 <!-- Modal Trigger -->
-<div id="filter" class="waves-effect waves-light btn modal-trigger" style="width:100%">
+<div id="filter" class="waves-effect waves-light btn modal-trigger red-gathr" style="width:100%">
   Filter
 </div>
 
@@ -129,11 +129,11 @@
             <div class="card-right-border right teal">
                 <!--Place Btn Here-->
 
-                <div class="btn-hm btn<%= event.id %> waves-effect waves-light cv-parent">
+                <div class="btn-hm btn<%= event.id %> waves-effect waves-light cv-parent red-gathr">
                     <%= image_tag("Check@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
                 </div>
 
-                <div class="btn-hm waves-effect waves-light cv-parent">
+                <div class="btn-hm waves-effect waves-light cv-parent red-gathr">
                   <%= image_tag("Xmark@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
                 </div>
 
