@@ -48,9 +48,35 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
-    @event.creator_id = current_user.id
-    @event.confirmed_attendees = 0
+    puts "****************************"
+    puts "In Event-->Create View..."
+    puts "event_params: "
+    puts event_params
+
+    if (Event.exists?(title: event_params["title"]))
+      puts "FOUND EVENT..."
+      puts event_params["title"]
+      puts "****************************"
+
+      @event = Event.find_by title: event_params["title"]
+      @event.description = event_params["description"]
+      @event.start_time = event_params["start_time"]
+      @event.food = event_params["food"]
+      @event.swag = event_params["swag"]
+      @event.prizes = event_params["prizes"]
+      @event.street = event_params["street"]
+      @event.city = event_params["city"]
+      @event.state = event_params["state"]
+      @event.zip_code = event_params["zip_code"]
+    else
+      puts "CREATING EVENT..."
+      puts event_params["title"]
+      puts "****************************"
+      @event = Event.new(event_params)
+      @event.creator_id = current_user.id
+      @event.confirmed_attendees = 0
+    end
+
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -60,6 +86,7 @@ class EventsController < ApplicationController
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /events/1
