@@ -41,7 +41,7 @@ class EventsController < ApplicationController
 
   #GET /attending
   def attending
-    temp_data = User.find(current_user.id).events
+    @events = User.find(current_user.id).events
 
     if params["food"]
       @events = @events.where(food: true)
