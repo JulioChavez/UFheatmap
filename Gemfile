@@ -52,15 +52,22 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 
+gem 'json'
+
 #Materialize SCSS
 gem 'materialize-sass'
 
 # Nokogiri gem (Needed to do 'bundle exec rake db:migrate')
 gem 'nokogiri'
 
+gem 'httparty'
+
 #help create basic forms for models
 gem 'simple_form'
 
+gem 'websocket-client-simple', '~> 0.3.0'
+gem 'websocket'
+gem 'websocket-eventmachine-client'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

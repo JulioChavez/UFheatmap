@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   @is_attending ||= false
+  @data = []
 
   # GET /events
   # GET /events.json
@@ -43,6 +44,87 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+  end
+
+  def sync
+
+    EM.epoll
+    EM.run do
+
+      ws = WebSocket::EventMachine::Client.connect(:host => "0.0.0.0", :port => 8080)
+
+      ws.onopen do
+        puts "Connected"
+        ws.send "Send data"
+       
+      end
+
+      ws.onmessage do |msg, type|
+        @data = JSON.parse(msg) 
+        stop
+      end
+
+      ws.onclose do
+        puts "Disconnected"
+      end
+
+      def stop
+        puts "Terminating connection"
+        EventMachine.stop
+      end
+
+    end 
+
+    @old_events = Event.where("creator_id = #{current_user.id}")
+    # Drop all events assigned to this Organizer
+    if (@old_events.count > 0)
+      @old_events.each do |event|
+        event.delete()
+      end
+    end
+
+    # Populate Gathr with the new event data
+    @data.each do |d|
+      @new_event = Event.new
+      @new_event.creator_id = current_user.id
+      @new_event.title = d["title"]
+      @new_event.confirmed_attendees = d["attendees"]
+      @new_event.description = d["description"]
+      @new_event.street = d["address"]["street"]
+      @new_event.city = d["address"]["city"]
+      @new_event.state = d["address"]["state"]
+      @new_event.zip_code = d["address"]["zip_code"]
+
+
+      if(d['date']['time'].include? ":")
+        @new_event.start_time = Time.new(d['date']['year'], d['date']['month'], d['date']['day'], Time.strptime(d['date']['time'], "%I:%M %P").strftime("%H"), Time.strptime(d['date']['time'], "%I:%M %P").strftime("%M"))
+      else
+        @new_event.start_time = Time.new(d['date']['year'], d['date']['month'], d['date']['day'], Time.strptime(d['date']['time'], "%I %P").strftime("%H"), Time.strptime(d['date']['time'], "%I %P").strftime("%M"))
+      end
+
+      if @new_event["description"].downcase.include? "free food"
+        @new_event.food = true
+      else
+        @new_event.food = false
+      end
+
+      if @new_event["description"].downcase.include? "swag"
+        @new_event.swag = true
+      else
+        @new_event.swag = false
+      end
+
+      if @new_event["description"].downcase.include? "prize"
+        @new_event.prizes = true
+      else
+        @new_event.prizes = false
+      end
+
+      @new_event.save
+    end 
+
+    redirect_to('/')
+  
   end
 
   # POST /events

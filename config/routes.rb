@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'attending', to: 'events#attending'
   get 'latest', to: 'events#latest'
+  get 'sync', to: 'events#sync'
 
   devise_for :users, :controllers => { registrations: 'registrations', sessions:'sessions'}
 

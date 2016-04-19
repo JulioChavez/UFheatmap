@@ -96,12 +96,13 @@
        </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Sync</a>
+      <%= link_to('Sync', sync_path, class: "modal-action modal-close waves-effect waves-green btn-flat") %>
     </div>
   </div>
 
  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
    <%= link_to "+", { controller: "events", action:"new" }, class: "btn-create btn-floating btn-large waves-effect waves-light orange-gathr right" %>
+
  </div>
 
  <script>
