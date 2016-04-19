@@ -43,9 +43,12 @@
               <div class="card-title-hm">
 
               <div class="left">
-                  <%= image_tag("brent.jpg", :height => "50", :alt => "attendee_icon", :class => "img-circle") %>
+                  <%= image_tag("gathr_logo.png", :height => "50", :alt => "attendee_icon", :class => "") %>
               </div>
+              <div class="title-my">
                 <%= event.title %>
+              </div>
+
               </div>
               <div class="card-address">
                 <%= event.address %>
@@ -98,7 +101,7 @@
   </div>
 
  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-   <%= link_to "+", { controller: "events", action:"new" }, class: "btn-create btn-floating btn-large waves-effect waves-light color-gathr right" %>
+   <%= link_to "+", { controller: "events", action:"new" }, class: "btn-create btn-floating btn-large waves-effect waves-light orange-gathr right" %>
  </div>
 
  <script>
