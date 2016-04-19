@@ -10,7 +10,7 @@
         <%= @user.last_name %>
       </div>
     </div>
-    <li><a href="#">Events</a></li>
+    <li><a href="#" id="syncBtn">Sync</a></li>
     <li><%= link_to('Log Out', destroy_user_session_path, :method => :delete) %></li>
   </ul>
 </nav>
@@ -85,6 +85,26 @@
 <% end %>
 </div>
 
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <div class="input-field col s6">
+         <input id="website_link" type="text" class="validate">
+         <label for="first_name">Enter Your Website Here</label>
+       </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Sync</a>
+    </div>
+  </div>
+
  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
    <%= link_to "+", { controller: "events", action:"new" }, class: "btn-create btn-floating btn-large waves-effect waves-light color-gathr right" %>
  </div>
+
+ <script>
+ $('#syncBtn').click(function(){
+   $('#modal1').openModal();
+ })
+
+ </script>
