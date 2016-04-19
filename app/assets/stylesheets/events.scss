@@ -73,23 +73,26 @@ img.center {
 }
 
 .title-my{
+  margin-left: 10px;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
   padding-bottom: 10px;
 }
 
 .card-address{
-  font-size: 17px;
+  margin-left: 10px;
+  font-size: 14px;
   padding-bottom: 5px;
 }
 
 .card-time{
-  margin-left: 30px;
-  font-size: 19px;
+  margin-left: 40px;
+  font-size: 14px;
 }
 
 .card-desc{
-  font-size: 20px;
+  margin-left: 10px;
+  font-size: 16px;
   padding: 10px;
   text-overflow:ellipsis;
 }
@@ -130,6 +133,10 @@ img.center {
 .center-me {
   display:block;
   margin:0 auto;
+}
+
+.menu-active{
+  color:black !important;
 }
 
 .sideNav-padding{
@@ -228,10 +235,11 @@ a:hover, a:focus {
   display: none;
 }
 #cssmenu ul li.active a {
-  color: #333333;
+  color: black;
 }
 #cssmenu ul li.active a:before {
   width: 100%;
+  color: black;
 }
 #cssmenu.align-right li.last > a:after,
 #cssmenu.align-right li:last-child > a:after {

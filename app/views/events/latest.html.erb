@@ -67,7 +67,9 @@
             <%= link_to('Logout', destroy_user_session_path ,:method => :delete) %>
         </li>
       </ul>
-      <a href="" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href="" data-activates="nav-mobile" class="button-collapse cv-parent">
+        <%= image_tag("ic_menu_black_24dp_1x.png", :alt => "menu" , size: "24x24", class: "center cv-child") %>
+      </a>
     </div>
   </nav>
 
@@ -81,7 +83,7 @@
 <div class="center" id='cssmenu'>
 <ul>
    <li><a href='/events' class="red-gathr-font"><span>Trending</span></a></li>
-   <li class="active"><a href='/latest' class="red-gathr-font"><span>Latest</span></a></li>
+   <li class="active"><a href='/latest' class="red-gathr-font"><span class="menu-active" >Latest</span></a></li>
    <li ><a href='/attending' class="red-gathr-font"><span>Atteding</span></a></li>
 </ul>
 </div>
@@ -144,7 +146,7 @@
               <div class="card-title-hm">
 
               <div class="left">
-                  <%= image_tag("hugh.png", :height => "50", :alt => "attendee_icon", :class => "img-circle") %>
+                  <%= image_tag("Match_logo@2x.png", :height => "100", :alt => "attendee_icon", :class => "img-circle") %>
               </div>
               <div class="title-my">
               <%= event.title %>
