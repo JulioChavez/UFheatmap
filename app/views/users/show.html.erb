@@ -52,8 +52,7 @@
                 <%= event.address %>
               </div>
               <div class="card-time">
-                <!-- <%= event.start_time %> -->
-                3:00pm
+                <%= event.start_time.strftime("%m/%d/%Y %I:%M %p") %>
               </div>
               <div class="card-desc">
                 <%= event.description %>
