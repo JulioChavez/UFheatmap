@@ -23,6 +23,9 @@ class EventsController < ApplicationController
   #GET /attending
   def attending
     @events = User.find(current_user.id).events
+
+    # if params["food"]
+    #   @events = @events.find_by food: true
   end
 
   #GET /latest
