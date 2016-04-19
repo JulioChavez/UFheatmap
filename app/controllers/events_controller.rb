@@ -18,16 +18,75 @@ class EventsController < ApplicationController
       #  @events = Event.order(start_time:)                # Latest
       #  @events = User.find(current_user.id).events       # Attending
     end
+
+    if params["food"]
+      @events = @events.where(food: true)
+      # puts "temp_data.find_by food: true OUTPUT:"
+      # puts temp_data.where(food: true)
+
+    end
+
+    if params["swag"]
+      @events = @events.where(swag: true)
+      # puts "temp_data.find_by swag: true OUTPUT:"
+      # puts temp_data.find_by swag: true
+    end
+
+    if params["prizes"]
+      @events = @events.where(prizes: true)
+      # puts "temp_data.find_by prizes: true OUTPUT:"
+      # puts temp_data.find_by prizes: true
+    end
   end
 
   #GET /attending
   def attending
-    @events = User.find(current_user.id).events
+    temp_data = User.find(current_user.id).events
+
+    if params["food"]
+      @events = @events.where(food: true)
+      # puts "temp_data.find_by food: true OUTPUT:"
+      # puts temp_data.where(food: true)
+
+    end
+
+    if params["swag"]
+      @events = @events.where(swag: true)
+      # puts "temp_data.find_by swag: true OUTPUT:"
+      # puts temp_data.find_by swag: true
+    end
+
+    if params["prizes"]
+      @events = @events.where(prizes: true)
+      # puts "temp_data.find_by prizes: true OUTPUT:"
+      # puts temp_data.find_by prizes: true
+    end
+
   end
 
   #GET /latest
   def latest
     @events = Event.order(:start_time)
+
+    if params["food"]
+      @events = @events.where(food: true)
+      # puts "temp_data.find_by food: true OUTPUT:"
+      # puts temp_data.where(food: true)
+
+    end
+
+    if params["swag"]
+      @events = @events.where(swag: true)
+      # puts "temp_data.find_by swag: true OUTPUT:"
+      # puts temp_data.find_by swag: true
+    end
+
+    if params["prizes"]
+      @events = @events.where(prizes: true)
+      # puts "temp_data.find_by prizes: true OUTPUT:"
+      # puts temp_data.find_by prizes: true
+    end
+
   end
 
 
@@ -116,24 +175,6 @@ class EventsController < ApplicationController
     else
       # puts "*****************"
       # puts "You are already attending this event!"
-      # puts "*****************"
-      render :nothing => true, :status => :ok
-    end
-  end
-
-  def decrement
-    @event = Event.find(params[:id])
-
-    if (@event.users.include?(current_user))
-      # puts "*****************"
-      # puts "Attendee found. Deleting #{current_user.first_name} from the event list..."
-      # puts "*****************"
-      @event.users.delete(current_user)
-      render json: { success: @event.decrement_attendance }, status: :ok
-
-    else
-      # puts "*****************"
-      # puts "You are not attending this event!"
       # puts "*****************"
       render :nothing => true, :status => :ok
     end
