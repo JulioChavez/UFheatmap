@@ -247,60 +247,66 @@ function initMap() {
 
     events = getEvents();
     map = new google.maps.Map(document.getElementById('map'), {
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-    bounds = new google.maps.LatLngBounds();
-
-    heatmap = new google.maps.visualization.HeatmapLayer({
-        data: getPoints(),
-        map: map
-    });
-    heatmap.set('radius', 50);
-
-    var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-    // Create all of the markers with their respective info windows
-    // Source: http://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
-    for (i = 0; i < events.length; i++) {
-        position = new google.maps.LatLng(events[i].position.lat,events[i].position.lng);
-        // Extend the bounds of the map depending on where the new marker will be located
-        bounds.extend(position);
-
-        // Initialize the marker
-        marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            title: events[i].title
-        });
-
-        // Assign each marker its own info window
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infoWindow.setContent(
-                    '<b><h5>' + events[i].title + '</h5></b>' +
-                    '<p>' + events[i].street + '<br>' +
-                    events[i].city + ', ' + events[i].state + ' ' + events[i].zip_code + '<br><br>' +
-                    '<b><i><a href="https://maps.google.com?saddr=Current+Location&daddr='
-                    + events[i].position.lat + ','+ events[i].position.lng + '" target="_blank">Click Here for Directions</a></i></b>'+ '</p>'
-                );
-                infoWindow.open(map, marker);
-            }
-        })(marker, i));
-
-        // Automatically center the map fitting all markers on the screen
-        map.fitBounds(bounds);
-    }
-
-    // Close info windows when clicking outside of the info window (i.e. on the map)
-    google.maps.event.addListener(map, "click", function(event) {
-        infoWindow.close();
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        <% if @events.count == 0 %>
+          center: new google.maps.LatLng(29.6436, -82.3549),
+          zoom: 14
+        <% end %>
     });
 
-    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-        this.setZoom(14);
-        google.maps.event.removeListener(boundsListener);
-    });
+    <% if @events.count > 0 %>
+      bounds = new google.maps.LatLngBounds();
+      heatmap = new google.maps.visualization.HeatmapLayer({
+          data: getPoints(),
+          map: map
+      });
+      heatmap.set('radius', 50);
+
+      var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+      // Create all of the markers with their respective info windows
+      // Source: http://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
+      for (i = 0; i < events.length; i++) {
+          position = new google.maps.LatLng(events[i].position.lat,events[i].position.lng);
+          // Extend the bounds of the map depending on where the new marker will be located
+          bounds.extend(position);
+
+          // Initialize the marker
+          marker = new google.maps.Marker({
+              position: position,
+              map: map,
+              title: events[i].title
+          });
+
+          // Assign each marker its own info window
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+              return function() {
+                  infoWindow.setContent(
+                      '<b><h5>' + events[i].title + '</h5></b>' +
+                      '<p>' + events[i].street + '<br>' +
+                      events[i].city + ', ' + events[i].state + ' ' + events[i].zip_code + '<br><br>' +
+                      '<b><i><a href="https://maps.google.com?saddr=Current+Location&daddr='
+                      + events[i].position.lat + ','+ events[i].position.lng + '" target="_blank">Click Here for Directions</a></i></b>'+ '</p>'
+                  );
+                  infoWindow.open(map, marker);
+              }
+          })(marker, i));
+
+          // Automatically center the map fitting all markers on the screen
+          map.fitBounds(bounds);
+      }
+
+      // Close info windows when clicking outside of the info window (i.e. on the map)
+      google.maps.event.addListener(map, "click", function(event) {
+          infoWindow.close();
+      });
+
+      // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+      var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+          this.setZoom(14);
+          google.maps.event.removeListener(boundsListener);
+      });
+    <% end %>
 }
 
 function toggleHeatmap() {
