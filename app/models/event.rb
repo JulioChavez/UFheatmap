@@ -9,17 +9,16 @@ class Event < ActiveRecord::Base
 	end
 
 	def increment_attendance
-		# current_user = User.find(params[:id])
-		# current_user = User.find(1)
-		puts("BEFORE SAVE, Attendee List: #{self.users}")
-
 		# Check if Attendee is already attending this Event
 		self.confirmed_attendees ||= 0
 		self.confirmed_attendees += 1
 		self.save!
+	end
 
-		puts("AFTER SAVE, Attendee List: #{self.users}")
-		# end
-
+	def decrement_attendance
+		# Check if Attendee is already attending this Event
+		self.confirmed_attendees ||= 1
+		self.confirmed_attendees -= 1
+		self.save!
 	end
 end

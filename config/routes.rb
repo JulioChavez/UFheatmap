@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :events
   get 'event/increment/:id' => 'events#increment'
+  get 'event/decrement/:id' => 'events#decrement'
   get 'event/delete/:id' => 'events#destroy'
 
   get 'attending', to: 'events#attending'
