@@ -81,7 +81,7 @@
 <ul>
    <li class="active" ><a href='/events' class="red-gathr-font"><span class="menu-active">Trending</span></a></li>
    <li><a href='/latest' class="red-gathr-font"><span>Latest</span></a></li>
-   <li><a href='/attending' class="red-gathr-font"><span>Atteding</span></a></li>
+   <li><a href='/attending' class="red-gathr-font"><span>Attending</span></a></li>
 </ul>
 </div>
 
@@ -96,15 +96,15 @@
   <ul class="collection">
       <li class="collection-item avatar row">
         <div class="col s4">
-          <input type="checkbox" id="swag"/>
+          <input type="checkbox" id="swag" <% if params["swag"] %>checked<% end%> />
           <label for="swag">Swag</label>
         </div>
         <div class="col s4">
-          <input type="checkbox" id="food"/>
+          <input type="checkbox" id="food" <% if params["food"] %>checked<% end%> />
           <label for="food">Food</label>
         </div>
         <div class="col s4">
-          <input type="checkbox" id="prizes"/>
+          <input type="checkbox" id="prizes" <% if params["prizes"] %>checked<% end%> />
           <label for="prizes">Prizes</label>
         </div>
       </li>
@@ -119,6 +119,11 @@
 
 
 <div class="timeline">
+
+<% if @events.count == 0 %>
+  <h5 class="center" style="padding: 10px;">No events to show.</h5>
+<% end %>
+
 <% @events.each do |event| %>
       <div class="card">
 

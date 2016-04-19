@@ -36,9 +36,6 @@
                 z-index: 5;
             }
         </style>
-
-
-
     </head>
 
 <body style="
@@ -82,9 +79,9 @@
 
 <div class="center" id='cssmenu'>
 <ul>
-   <li><a href='/events' class="red-gathr-font" ><span>Trending</span></a></li>
+   <li><a href='/events' class="red-gathr-font"><span>Trending</span></a></li>
    <li><a href='/latest' class="red-gathr-font"><span>Latest</span></a></li>
-   <li class="active"><a href='/attending' class="red-gathr-font"><span class="menu-active">Atteding</span></a></li>
+   <li class="active"><a href='/attending' class="red-gathr-font"><span class="menu-active">Attending</span></a></li>
 </ul>
 </div>
 
@@ -99,22 +96,19 @@
   <ul class="collection">
       <li class="collection-item avatar row">
         <div class="col s4">
-          <input type="checkbox" id="swag"/>
+          <input type="checkbox" id="swag" <% if params["swag"] %>checked<% end%> />
           <label for="swag">Swag</label>
         </div>
         <div class="col s4">
-          <input type="checkbox" id="food"/>
+          <input type="checkbox" id="food" <% if params["food"] %>checked<% end%> />
           <label for="food">Food</label>
         </div>
         <div class="col s4">
-          <input type="checkbox" id="prizes"/>
+          <input type="checkbox" id="prizes" <% if params["prizes"] %>checked<% end%> />
           <label for="prizes">Prizes</label>
         </div>
       </li>
   </ul>
-
-
-
 
   <div class="modal-footer">
     <a id="filterStrBtn" class=" modal-action modal-close waves-effect waves-green btn-flat">Start</a>
@@ -125,27 +119,30 @@
 
 
 <div class="timeline">
+
+<% if @events.count == 0 %>
+  <h5 class="center" style="padding: 10px;">No events to show.</h5>
+<% end %>
+
 <% @events.each do |event| %>
       <div class="card">
-
-          <!-- <div class="left">
-            <%= event.title %>
-            <%= event.address %>
-            <%= event.start_time %>
-
-          </div> -->
-
 
             <div class="card-right-border right teal">
                 <!--Place Btn Here-->
 
-                <div class="btn-hm btn<%= event.id %> waves-effect waves-light cv-parent color-gathr">
-                    <%= image_tag("Check@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
-                </div>
-
-                <div class="btn-hm waves-effect waves-light cv-parent color-gathr">
-                  <%= image_tag("Xmark@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
-                </div>
+                <% if !event.users.exists? current_user %>
+                  <div class="btn-hm btn<%= event.id %> waves-effect waves-light cv-parent color-gathr">
+                      <%= image_tag("Check@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
+                  </div>
+                  <div class="btn-hm waves-effect waves-light cv-parent color-gathr">
+                  </div>
+                <% else %>
+                  <div class="btn-hm cv-parent color-gathr">
+                  </div>
+                  <div class="btn-hm btn<%= event.id %> waves-effect waves-light cv-parent color-gathr">
+                    <%= image_tag("Xmark@2x.png", :height => "25", :alt => "", :class => "img-center cv-child") %>
+                  </div>
+                <% end %>
 
             </div>
 
@@ -153,81 +150,65 @@
 
               <div class="card-title-hm">
 
-              <div class="left">
-                  <%= image_tag("Match_logo@2x.png", :height => "100", :alt => "attendee_icon", :class => "img-circle") %>
-              </div>
-              <div class="title-my">
-              <%= event.title %>
-              </div>
-              <div class="card-address">
-                <%= event.address %>
-              </div>
-              <div class="card-time">
-                <%= event.start_time.strftime("%m/%d/%Y %I:%M %p") %>
-              </div>
-              <div class="card-desc">
-                <%= event.description %>
-              </div>
-
-
-              <div class="row">
-                <div class="col s3 cv-parent img-perk attendance-count">
-                    <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "center ") %>
-                    <%= event.confirmed_attendees %>
+                <div class="left">
+                    <%= image_tag("Match_logo@2x.png", :height => "100", :alt => "attendee_icon", :class => "img-circle") %>
                 </div>
-                <div class="col s3 img-perk">
-                  <% if event.food %>
-                    <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
-                  <% end %>
+                <div class="title-my">
+                <%= event.title %>
                 </div>
-                <div class="col s3 img-perk">
-                  <% if event.swag %>
-                    <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
-                  <% end %>
+                <div class="card-address">
+                  <%= event.address %>
                 </div>
-                <div class="col s3 img-perk">
-                  <% if event.prizes %>
-                    <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
-                  <% end %>
+                <div class="card-time">
+                  <%= event.start_time.strftime("%m/%d/%Y %I:%M %p") %>
+                </div>
+                <div class="card-desc">
+                  <%= event.description %>
+                </div>
+
+                <div class="row">
+                  <div class="col s3 cv-parent img-perk attendance-count">
+                      <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "center ") %>
+                      <%= event.confirmed_attendees %>
+                  </div>
+                  <div class="col s3 img-perk">
+                    <% if event.food %>
+                      <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
+                    <% end %>
+                  </div>
+                  <div class="col s3 img-perk">
+                    <% if event.swag %>
+                      <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
+                    <% end %>
+                  </div>
+                  <div class="col s3 img-perk">
+                    <% if event.prizes %>
+                      <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
-            </div>
 
             </div>
-
-        <!-- <div class="btn btn<%= event.id %> waves-effect waves-light", style="margin-left: 60px;">Confirm</div> -->
-
-   <!--    <div class="card-action">
-          <div class="row">
-            <div class="col s3">
-                <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "left") %>
-                <div class="card-action-attendee-count"><%= event.confirmed_attendees %></div>
-            </div>
-            <div class="col s3">
-              <% if event.food %>
-                <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
-              <% end %>
-            </div>
-            <div class="col s3">
-              <% if event.swag %>
-                <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
-              <% end %>
-            </div>
-            <div class="col s3">
-              <% if event.prizes %>
-                <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
-              <% end %>
-            </div>
-          </div>
-        </div> -->
   </div>
 
   <script>
-  $(".btn" + <%= event.id %>).click(function() {
-    $.get( "/event/increment/" + <%= event.id %>, function( data ) {
-      alert( "You have been confirmed!" );
-    });
-  })
+
+  <% if !event.users.exists? current_user %>
+    $(".btn<%= event.id %>").click(function() {
+      $.get( "/event/increment/<%= event.id %>", function( data ) {
+        alert( "You have been confirmed!" );
+      });
+    })
+  <% else %>
+    $(".btn<%= event.id %>").click(function() {
+      $.get( "/event/decrement/<%= event.id %>", function( data ) {
+        alert( "You have been removed from the event!" );
+      });
+    })
+  <% end %>
+
+
   </script>
 <% end %>
 
@@ -271,60 +252,66 @@ function initMap() {
 
     events = getEvents();
     map = new google.maps.Map(document.getElementById('map'), {
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-    bounds = new google.maps.LatLngBounds();
-
-    heatmap = new google.maps.visualization.HeatmapLayer({
-        data: getPoints(),
-        map: map
-    });
-    heatmap.set('radius', 50);
-
-    var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-    // Create all of the markers with their respective info windows
-    // Source: http://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
-    for (i = 0; i < events.length; i++) {
-        position = new google.maps.LatLng(events[i].position.lat,events[i].position.lng);
-        // Extend the bounds of the map depending on where the new marker will be located
-        bounds.extend(position);
-
-        // Initialize the marker
-        marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            title: events[i].title
-        });
-
-        // Assign each marker its own info window
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infoWindow.setContent(
-                    '<b><h5>' + events[i].title + '</h5></b>' +
-                    '<p>' + events[i].street + '<br>' +
-                    events[i].city + ', ' + events[i].state + ' ' + events[i].zip_code + '<br><br>' +
-                    '<b><i><a href="https://maps.google.com?saddr=Current+Location&daddr='
-                    + events[i].position.lat + ','+ events[i].position.lng + '" target="_blank">Click Here for Directions</a></i></b>'+ '</p>'
-                );
-                infoWindow.open(map, marker);
-            }
-        })(marker, i));
-
-        // Automatically center the map fitting all markers on the screen
-        map.fitBounds(bounds);
-    }
-
-    // Close info windows when clicking outside of the info window (i.e. on the map)
-    google.maps.event.addListener(map, "click", function(event) {
-        infoWindow.close();
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        <% if @events.count == 0 %>
+          center: new google.maps.LatLng(29.6436, -82.3549),
+          zoom: 14
+        <% end %>
     });
 
-    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-        this.setZoom(14);
-        google.maps.event.removeListener(boundsListener);
-    });
+    <% if @events.count > 0 %>
+      bounds = new google.maps.LatLngBounds();
+      heatmap = new google.maps.visualization.HeatmapLayer({
+          data: getPoints(),
+          map: map
+      });
+      heatmap.set('radius', 50);
+
+      var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+      // Create all of the markers with their respective info windows
+      // Source: http://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
+      for (i = 0; i < events.length; i++) {
+          position = new google.maps.LatLng(events[i].position.lat,events[i].position.lng);
+          // Extend the bounds of the map depending on where the new marker will be located
+          bounds.extend(position);
+
+          // Initialize the marker
+          marker = new google.maps.Marker({
+              position: position,
+              map: map,
+              title: events[i].title
+          });
+
+          // Assign each marker its own info window
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+              return function() {
+                  infoWindow.setContent(
+                      '<b><h5>' + events[i].title + '</h5></b>' +
+                      '<p>' + events[i].street + '<br>' +
+                      events[i].city + ', ' + events[i].state + ' ' + events[i].zip_code + '<br><br>' +
+                      '<b><i><a href="https://maps.google.com?saddr=Current+Location&daddr='
+                      + events[i].position.lat + ','+ events[i].position.lng + '" target="_blank">Click Here for Directions</a></i></b>'+ '</p>'
+                  );
+                  infoWindow.open(map, marker);
+              }
+          })(marker, i));
+
+          // Automatically center the map fitting all markers on the screen
+          map.fitBounds(bounds);
+      }
+
+      // Close info windows when clicking outside of the info window (i.e. on the map)
+      google.maps.event.addListener(map, "click", function(event) {
+          infoWindow.close();
+      });
+
+      // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+      var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+          this.setZoom(14);
+          google.maps.event.removeListener(boundsListener);
+      });
+    <% end %>
 }
 
 function toggleHeatmap() {
