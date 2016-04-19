@@ -95,13 +95,21 @@
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal bottom-sheet">
+  <h6 class="center">Filter By</h6>
   <ul class="collection">
-      <li class="collection-item avatar">
-        <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
-          <p>
-            <input type="checkbox" id="test5" />
-            <label for="test5">Red</label>
-          </p>
+      <li class="collection-item avatar row">
+        <div class="col s4">
+          <input type="checkbox" id="swag"/>
+          <label for="swag">Swag</label>
+        </div>
+        <div class="col s4">
+          <input type="checkbox" id="food"/>
+          <label for="food">Food</label>
+        </div>
+        <div class="col s4">
+          <input type="checkbox" id="prizes"/>
+          <label for="prizes">Prizes</label>
+        </div>
       </li>
   </ul>
 
@@ -109,7 +117,7 @@
 
 
   <div class="modal-footer">
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    <a id="filterStrBtn" class=" modal-action modal-close waves-effect waves-green btn-flat">Start</a>
   </div>
 </div>
 
@@ -226,6 +234,28 @@
 <script>
 $('#filter').click(function(){
   $('#modal1').openModal();
+})
+
+$('#filterStrBtn').click(function(){
+  var swag = $("#swag").is(':checked'); //get values for query
+  var prizes = $("#prizes").is(':checked');
+  var food = $("#food").is(':checked');
+  var uri = "?"
+  if(swag == true){
+    console.log("swag = true");
+    uri += "swag=true&";
+  }if(prizes == true){
+    console.log("prizes = true");
+    uri += "prizes=true&";
+  }if(food == true){
+    console.log("food = true");
+    uri += "food=true&";
+  }
+  //set url now
+  var final = uri.substring(0,uri.length-1);
+  location.href = final;
+  console.log(final);
+
 })
 
 $("#Attending").click(function() {
