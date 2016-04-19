@@ -10,7 +10,7 @@
         <%= @user.last_name %>
       </div>
     </div>
-    <li><a href="#">Events</a></li>
+    <li><a href="#" id="syncBtn">Sync</a></li>
     <li><%= link_to('Log Out', destroy_user_session_path, :method => :delete) %></li>
   </ul>
 </nav>
@@ -27,12 +27,11 @@
           </div> -->
 
             <div class="card-right-border right teal color-gathr cv-parent">
+              <div class="btn-hm cv-parent">
                 <%= link_to image_tag("ic-edit@2x.png", :height => "50", :alt => "edit_icon", :class => "img-center cv-child"), edit_event_path(event) %>
-
+              </div>
 
                 <div class="btn-hm cv-parent">
-                  <!-- <%= link_to "delete", {controller: "events" ,action: "destroy", id: event.id },
-                                method: :delete, data: { confirm: "Are you sure?" } %> -->
                   <%= link_to image_tag("ic-trash@2x.png", :height => "50", :alt => "trash_icon", :class => "img-center cv-child"),
                   {controller: "events" ,action: "destroy", id: event.id }, method: :delete, data: { confirm: "Are you sure?" }  %>
 
@@ -44,9 +43,12 @@
               <div class="card-title-hm">
 
               <div class="left">
-                  <%= image_tag("brent.jpg", :height => "50", :alt => "attendee_icon", :class => "img-circle") %>
+                  <%= image_tag("gathr_logo.png", :height => "50", :alt => "attendee_icon", :class => "") %>
               </div>
+              <div class="title-my">
                 <%= event.title %>
+              </div>
+
               </div>
               <div class="card-address">
                 <%= event.address %>
@@ -85,6 +87,26 @@
 <% end %>
 </div>
 
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <div class="input-field col s6">
+         <input id="website_link" type="text" class="validate">
+         <label for="first_name">Enter Your Website Here</label>
+       </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Sync</a>
+    </div>
+  </div>
+
  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-   <%= link_to "+", { controller: "events", action:"new" }, class: "btn-create btn-floating btn-large waves-effect waves-light color-gathr right" %>
+   <%= link_to "+", { controller: "events", action:"new" }, class: "btn-create btn-floating btn-large waves-effect waves-light orange-gathr right" %>
  </div>
+
+ <script>
+ $('#syncBtn').click(function(){
+   $('#modal1').openModal();
+ })
+
+ </script>

@@ -7,11 +7,15 @@ img.center {
 }
 
 .red-gathr{
-  background-color: #f96e5b !important;
+  background-color: #D4422A !important;
 }
 
 .red-gathr-font{
-  color: #f96e5b !important;
+  color: #D4422A !important;
+}
+
+.orange-gathr{
+  background-color: #EC7F58;
 }
 
 .center-form {
@@ -80,10 +84,12 @@ img.center {
 }
 
 .card-time{
+  margin-left: 30px;
   font-size: 19px;
 }
 
 .card-desc{
+  font-size: 20px;
   padding: 10px;
   text-overflow:ellipsis;
 }
