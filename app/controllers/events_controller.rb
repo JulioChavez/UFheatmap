@@ -121,6 +121,24 @@ class EventsController < ApplicationController
     end
   end
 
+  def decrement
+    @event = Event.find(params[:id])
+
+    if (@event.users.include?(current_user))
+      # puts "*****************"
+      # puts "Attendee found. Deleting #{current_user.first_name} from the event list..."
+      # puts "*****************"
+      @event.users.delete(current_user)
+      render json: { success: @event.decrement_attendance }, status: :ok
+
+    else
+      # puts "*****************"
+      # puts "You are not attending this event!"
+      # puts "*****************"
+      render :nothing => true, :status => :ok
+    end
+  end
+
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
