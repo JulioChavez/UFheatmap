@@ -118,14 +118,6 @@
 <% @events.each do |event| %>
       <div class="card">
 
-          <!-- <div class="left">
-            <%= event.title %>
-            <%= event.address %>
-            <%= event.start_time %>
-
-          </div> -->
-
-
             <div class="card-right-border right teal">
                 <!--Place Btn Here-->
 
@@ -143,73 +135,47 @@
 
               <div class="card-title-hm">
 
-              <div class="left">
-                  <%= image_tag("hugh.png", :height => "50", :alt => "attendee_icon", :class => "img-circle") %>
-              </div>
-              <div class="title-my">
-              <%= event.title %>
-              </div>
-              <div class="card-address">
-                <%= event.address %>
-              </div>
-              <div class="card-time">
-                <%= event.start_time.strftime("%m/%d/%Y %I:%M %p") %>
-              </div>
-              <div class="card-desc">
-                <%= event.description %>
-              </div>
-
-
-              <div class="row">
-                <div class="col s3 cv-parent img-perk attendance-count">
-                    <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "center ") %>
-                    <%= event.confirmed_attendees %>
+                <div class="left">
+                    <%= image_tag("hugh.png", :height => "50", :alt => "attendee_icon", :class => "img-circle") %>
                 </div>
-                <div class="col s3 img-perk">
-                  <% if event.food %>
-                    <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
-                  <% end %>
+                <div class="title-my">
+                <%= event.title %>
                 </div>
-                <div class="col s3 img-perk">
-                  <% if event.swag %>
-                    <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
-                  <% end %>
+                <div class="card-address">
+                  <%= event.address %>
                 </div>
-                <div class="col s3 img-perk">
-                  <% if event.prizes %>
-                    <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
-                  <% end %>
+                <div class="card-time">
+                  <%= event.start_time.strftime("%m/%d/%Y %I:%M %p") %>
+                </div>
+                <div class="card-desc">
+                  <%= event.description %>
+                </div>
+
+
+                <div class="row">
+                  <div class="col s3 cv-parent img-perk attendance-count">
+                      <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "center ") %>
+                      <%= event.confirmed_attendees %>
+                  </div>
+                  <div class="col s3 img-perk">
+                    <% if event.food %>
+                      <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
+                    <% end %>
+                  </div>
+                  <div class="col s3 img-perk">
+                    <% if event.swag %>
+                      <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
+                    <% end %>
+                  </div>
+                  <div class="col s3 img-perk">
+                    <% if event.prizes %>
+                      <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
-            </div>
 
             </div>
-
-        <!-- <div class="btn btn<%= event.id %> waves-effect waves-light", style="margin-left: 60px;">Confirm</div> -->
-
-   <!--    <div class="card-action">
-          <div class="row">
-            <div class="col s3">
-                <%= image_tag("Event_Attendance.png", :alt => "outFire", size: "55x45",class: "left") %>
-                <div class="card-action-attendee-count"><%= event.confirmed_attendees %></div>
-            </div>
-            <div class="col s3">
-              <% if event.food %>
-                <%= image_tag("Event_food.png", :alt => "outFire",  size: "55x45", class: "center") %>
-              <% end %>
-            </div>
-            <div class="col s3">
-              <% if event.swag %>
-                <%= image_tag("Event_swag.png", :alt => "outFire" , size: "55x45", class: "center") %>
-              <% end %>
-            </div>
-            <div class="col s3">
-              <% if event.prizes %>
-                <%= image_tag("Event_Prizes.png", :alt => "outFire" , size: "55x45", class: "center") %>
-              <% end %>
-            </div>
-          </div>
-        </div> -->
   </div>
 
   <script>
